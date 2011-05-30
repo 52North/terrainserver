@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
+<BlattnummerService_Capabilities version="0.0.1" updateSequence="0">
+	<!-- Service Metadata -->
+	<Service>
+		<!-- The name for this type of service -->
+		<Name>TKBlattnummerService</Name>
+		<!-- Human-readable title for pick lists -->
+		<title>Northrhine-Westfalian TK-Blattnummer-Service</title>
+		<!-- Narrative description providing additional information -->
+		<Abstract>Northrhine-Westfalian TK-Blattnummer-Service maintained by con terra GmbH. Contact: info@conterra.de.</Abstract>
+		<!-- Top-level web address of service or service provider.  See also OnlineResource
+  elements under <DCPType>. -->
+		<OnlineResource xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="http://www.conterra.de" xlink:type="simple"/>
+		<!-- Contact information -->
+		<ContactInformation>
+			<ContactPersonPrimary>
+				<ContactPerson>Benno Schmidt</ContactPerson>
+				<ContactOrganization>con terra GmbH</ContactOrganization>
+			</ContactPersonPrimary>
+			<ContactPosition/>
+			<ContactAddress>
+				<AddressType/>
+				<Address>Martin-Luther-King-Weg 24</Address>
+				<City>Muenster</City>
+				<StateOrProvince/>
+				<PostCode>48155</PostCode>
+				<Country>Germany</Country>
+			</ContactAddress>
+			<ContactVoiceTelephone>++49 251 7474 0</ContactVoiceTelephone>	
+			<ContactFacsimileTelephone/>
+			<ContactElectronicMailAddress>schmidt@conterra.de</ContactElectronicMailAddress>
+		</ContactInformation>
+		<Fees>none</Fees>
+		<AccessConstraints>none</AccessConstraints>
+	</Service>
+	<Capability>
+		<Request>
+			<GetCapabilities>
+				<DCPType>
+					<HTTP>
+						<Get>
+							<OnlineResource xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="http://www.conterra.de/blattnummer/servlet/TKBlattnummerServlet" xlink:type="simple"/>
+						</Get>
+					</HTTP>
+				</DCPType>
+			</GetCapabilities>
+			<GetBlattnummer>
+				<Format>text/xml</Format>
+				<DCPType>
+					<HTTP>
+						<Get>
+							<OnlineResource xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="http://www.conterra.de/blattnummer/servlet/TKBlattnummerServlet" xlink:type="simple"/>
+						</Get>
+					</HTTP>
+				</DCPType>
+			</GetBlattnummer>
+		</Request>
+		<Exception>
+			<Format>application/vnd.ogc.se_xml</Format>
+		</Exception>
+	</Capability>
+</BlattnummerService_Capabilities>

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
+<W3DS_Capabilities version="0.0.1" updateSequence="0">
+	<!-- Service Metadata -->
+	<Service>
+		<!-- The name for this type of service -->
+		<Name>ProfileService</Name>
+		<!-- Human-readable title for pick lists -->
+		<Title>Profile Service</Title>
+		<!-- Narrative description providing additional information -->
+		<Abstract>Terrain profile service maintained by con terra GmbH. Contact: info@conterra.de.</Abstract>
+		<!-- Top-level web address of service or service provider.  See also OnlineResource
+  elements under <DCPType>. -->
+		<OnlineResource xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="http://www.conterra.de" xlink:type="simple"/>
+		<!-- Contact information -->
+		<ContactInformation>
+			<ContactPersonPrimary>
+				<ContactPerson>Benno Schmidt</ContactPerson>
+				<ContactOrganization>con terra GmbH</ContactOrganization>
+			</ContactPersonPrimary>
+			<ContactPosition/>
+			<ContactAddress>
+				<AddressType/>
+				<Address>Martin-Luther-King-Weg 24</Address>
+				<City>Muenster</City>
+				<StateOrProvince/>
+				<PostCode>48155</PostCode>
+				<Country>Germany</Country>
+			</ContactAddress>
+			<ContactVoiceTelephone>++49 251 7474 0</ContactVoiceTelephone>	
+			<ContactFacsimileTelephone/>
+			<ContactElectronicMailAddress>schmidt@conterra.de</ContactElectronicMailAddress>
+		</ContactInformation>
+		<Fees>none</Fees>
+		<AccessConstraints>none</AccessConstraints>
+	</Service>
+	<Capability>
+		<Request>
+			<GetCapabilities>
+				<DCPType>
+					<HTTP>
+						<Get>
+							<OnlineResource xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="http://www.conterra.de/demservice2/servlet/ProfileServlet" xlink:type="simple"/>
+						</Get>
+					</HTTP>
+				</DCPType>
+			</GetCapabilities>
+			<GetGraph>
+				<Format>image/svg+xml</Format>
+				<DCPType>
+					<HTTP>
+						<Get>
+							<OnlineResource xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="http://www.contera.de/demservice2/servlet/ProfileServlet" xlink:type="simple"/>
+						</Get>
+					</HTTP>
+				</DCPType>
+			</GetGraph>
+		</Request>
+		<Exception>
+			<Format>application/vnd.ogc.se_xml</Format>
+			<Format>application/vnd.ogc.se_inimage</Format>
+		</Exception>
+	</Capability>
+</W3DS_Capabilities>
