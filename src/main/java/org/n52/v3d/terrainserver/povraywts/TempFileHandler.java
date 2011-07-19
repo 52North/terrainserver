@@ -1,3 +1,22 @@
+/***************************************************************************************
+ * Copyright (C) 2011 by 52 North Initiative for Geospatial Open Source Software GmbH  *
+ *                                                                                     *
+ * Contact: Benno Schmidt & Martin May, 52 North Initiative for Geospatial Open Source *
+ * Software GmbH, Martin-Luther-King-Weg 24, 48155 Muenster, Germany, info@52north.org *
+ *                                                                                     *
+ * This program is free software; you can redistribute and/or modify it under the      *
+ * terms of the GNU General Public License version 2 as published by the Free Software *
+ * Foundation.                                                                         *
+ *                                                                                     *
+ * This program is distributed WITHOUT ANY WARRANTY; even without the implied WARRANTY *
+ * OF MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public  *
+ * License for more details.                                                           *
+ *                                                                                     *
+ * You should have received a copy of the GNU General Public License along with this   *
+ * program (see gnu-gpl v2.txt). If not, write to the Free Software Foundation, Inc.,  *
+ * 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA, or visit the Free Software *
+ * Foundation web page, http://www.fsf.org.                                            *
+ **************************************************************************************/
 package org.n52.v3d.terrainserver.povraywts;
 
 import javax.servlet.http.HttpSessionBindingEvent;
@@ -6,9 +25,8 @@ import java.util.ArrayList;
 import java.io.File;
 
 /**
- * Hilfsklasse zur Bereinigung der Temporärdateien auf dem Server.<p>
- * @author Benno Schmidt<br>
- * (c) 2004, con terra GmbH & Institute for Geoinformatics<br>
+ * Hilfsklasse zur Bereinigung der Temporï¿½rdateien auf dem Server.<p>
+ * @author Benno Schmidt
  */
 public class TempFileHandler implements javax.servlet.http.HttpSessionBindingListener
 {
@@ -16,9 +34,9 @@ public class TempFileHandler implements javax.servlet.http.HttpSessionBindingLis
     private boolean mLocalDebug = false;
 
     /**
-     * fügt der Liste der zu löschenden Temporärdateien einen Eintrag hinzu. Diese Temporärdatei wird erst durch Aufruf
-     * der Methode <tt>this.removeTempFiles</tt> wieder gelöscht.<p>
-     * @param pFilename Dateiname (inkl. vollständiger Pfadangabe)
+     * fï¿½gt der Liste der zu lï¿½schenden Temporï¿½rdateien einen Eintrag hinzu. Diese Temporï¿½rdatei wird erst durch Aufruf
+     * der Methode <tt>this.removeTempFiles</tt> wieder gelï¿½scht.<p>
+     * @param pFilename Dateiname (inkl. vollstï¿½ndiger Pfadangabe)
      */
     public void addTempFile(String pFilename)
     {
@@ -27,9 +45,9 @@ public class TempFileHandler implements javax.servlet.http.HttpSessionBindingLis
     }
 
     /**
-     * löscht die Datei mit dem angegebenen Namen vom Server und entfernt den zugehörigen Eintrag aus der Liste der
-     * Temporärdateien.<p>
-     * @param pFilename Dateiname (inkl. vollständiger Pfadangabe)
+     * lï¿½scht die Datei mit dem angegebenen Namen vom Server und entfernt den zugehï¿½rigen Eintrag aus der Liste der
+     * Temporï¿½rdateien.<p>
+     * @param pFilename Dateiname (inkl. vollstï¿½ndiger Pfadangabe)
      */
     public void removeTempFile(String pFilename)
     {
@@ -46,9 +64,9 @@ public class TempFileHandler implements javax.servlet.http.HttpSessionBindingLis
     }
 
     /**
-     * löscht die Temporärdateien vom Server.<p>
-     * Diese Methode wird nur für die HTTP-Anfrage-spezifischen Temporärdateien aufzurufen. Für den Fall der
-     * Session-Unterstützung (CACHESCENE=true) wird für die Session-spezifischen Temporärdateien die Methode
+     * lï¿½scht die Temporï¿½rdateien vom Server.<p>
+     * Diese Methode wird nur fï¿½r die HTTP-Anfrage-spezifischen Temporï¿½rdateien aufzurufen. Fï¿½r den Fall der
+     * Session-Unterstï¿½tzung (CACHESCENE=true) wird fï¿½r die Session-spezifischen Temporï¿½rdateien die Methode
      * <tt>SessionHandler#valueUnbound</tt> automatisch aufgerufen.<p>
      */
     public void removeTempFiles()
@@ -66,19 +84,19 @@ public class TempFileHandler implements javax.servlet.http.HttpSessionBindingLis
 
     /**
      * wird aufgerufen, wenn das Objekt in die Session gelegt wird.<p>
-     * Bem.: Die Methode ist für die Implementierung der Schnittstelle <tt>HttpSessionBindingListener</tt> erforderlich.
+     * Bem.: Die Methode ist fï¿½r die Implementierung der Schnittstelle <tt>HttpSessionBindingListener</tt> erforderlich.
      * In diesem Fall ist nichts weiter zu veranlassen.<p>
-     * @param e auslösendes Ereignis
+     * @param e auslï¿½sendes Ereignis
      */
     public void valueBound(HttpSessionBindingEvent e) {
         ;
     }
 
     /**
-     * wird aufgerufen, wenn das Objekt aus der Session entfernt wird oder die Session ungültig wird.<p>
-     * Bem.: Die Methode ist für die Implementierung der Schnittstelle <tt>HttpSessionBindingListener</tt> erforderlich.
+     * wird aufgerufen, wenn das Objekt aus der Session entfernt wird oder die Session ungï¿½ltig wird.<p>
+     * Bem.: Die Methode ist fï¿½r die Implementierung der Schnittstelle <tt>HttpSessionBindingListener</tt> erforderlich.
      * In diesem Fall ist nichts weiter zu veranlassen.<p>
-     * @param e auslösendes Ereignis
+     * @param e auslï¿½sendes Ereignis
      */
     public void valueUnbound(HttpSessionBindingEvent e)
     {

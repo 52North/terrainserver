@@ -1,3 +1,22 @@
+/***************************************************************************************
+ * Copyright (C) 2011 by 52 North Initiative for Geospatial Open Source Software GmbH  *
+ *                                                                                     *
+ * Contact: Benno Schmidt & Martin May, 52 North Initiative for Geospatial Open Source *
+ * Software GmbH, Martin-Luther-King-Weg 24, 48155 Muenster, Germany, info@52north.org *
+ *                                                                                     *
+ * This program is free software; you can redistribute and/or modify it under the      *
+ * terms of the GNU General Public License version 2 as published by the Free Software *
+ * Foundation.                                                                         *
+ *                                                                                     *
+ * This program is distributed WITHOUT ANY WARRANTY; even without the implied WARRANTY *
+ * OF MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public  *
+ * License for more details.                                                           *
+ *                                                                                     *
+ * You should have received a copy of the GNU General Public License along with this   *
+ * program (see gnu-gpl v2.txt). If not, write to the Free Software Foundation, Inc.,  *
+ * 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA, or visit the Free Software *
+ * Foundation web page, http://www.fsf.org.                                            *
+ **************************************************************************************/
 package org.n52.v3d.terrainserver.povraywts;
 
 import org.n52.v3d.triturus.gisimplm.GmEnvelope;
@@ -7,16 +26,18 @@ import org.n52.v3d.triturus.t3dutil.T3dColor;
 import org.n52.v3d.triturus.core.T3dException;
 
 /**
- * Hilfsklasse zur Aufbereitung der Anfrage-Parameter und zur Überprüfung der Wertebereiche.<p>
- * Falls ein angegebener Wert außerhalb des zulässigen Wertebereichs liegt, wirft die zugehörige Methode eine
- * <tt>T3dException</tt>.<p>
- * @author Benno Schmidt<br>
- * (c) 2004-2005, con terra GmbH & Institute for Geoinformatics<br>
+ * Helper class to process request parameters and to check the request values for correctness.<br /><br />
+ * <i>German:</i> Hilfsklasse zur Aufbereitung der Anfrage-Parameter und zur &Uuml;berpf&uuml;fung der Wertebereiche.
+ * <br />
+ * Falls ein angegebener Wert au&szlig;erhalb des zul&auml;ssigen Wertebereichs liegt, wirft die zugeh&ouml;rige Methode
+ * eine <tt>T3dException</tt>.
+ * todo engl. JavaDoc in nachstehenden Methoden
+ * @author Benno Schmidt
  */
 public class ParameterPreparer
 {
     /**
-     * Aufbereitung/Prüfung der SRS-Angabe.<p>
+     * Aufbereitung/Prï¿½fung der SRS-Angabe.<p>
      * @param pVal getypter Request-Parameter aus <tt>HttpRequestParams</tt>
      * @return aufbereiteter Wert
      */
@@ -35,9 +56,9 @@ public class ParameterPreparer
     }
 
     /**
-     * Aufbereitung/Prüfung der BBOX-Angabe.<p>
+     * Aufbereitung/Prï¿½fung der BBOX-Angabe.<p>
      * @param pVal getypter Request-Parameter aus <tt>HttpRequestParams</tt>
-     * @param pSRS für Geometrie zu setzendes SRS
+     * @param pSRS fï¿½r Geometrie zu setzendes SRS
      * @return aufbereiteter Wert
      */
     public GmEnvelope prepareBBOX(GmEnvelope pVal, String pSRS) {
@@ -46,9 +67,9 @@ public class ParameterPreparer
     }
 
     /**
-     * Aufbereitung/Prüfung der POI-Angabe.<p>
+     * Aufbereitung/Prï¿½fung der POI-Angabe.<p>
      * @param pVal getypter Request-Parameter aus <tt>HttpRequestParams</tt>
-     * @param pSRS für Geometrie zu setzendes SRS
+     * @param pSRS fï¿½r Geometrie zu setzendes SRS
      * * @return aufbereiteter Wert
      */
     public VgPoint preparePOI(VgPoint pVal, String pSRS) {
@@ -59,7 +80,7 @@ public class ParameterPreparer
     }
 
     /**
-     * Aufbereitung/Prüfung der WMSLAYERS-Angabe.<p>
+     * Aufbereitung/Prï¿½fung der WMSLAYERS-Angabe.<p>
      * @param pVal getypter Request-Parameter aus <tt>HttpRequestParams</tt>
      * @return aufbereiteter Wert
      */
@@ -69,7 +90,7 @@ public class ParameterPreparer
     }
 
     /**
-     * Aufbereitung/Prüfung der WMSRES-Angabe.<p>
+     * Aufbereitung/Prï¿½fung der WMSRES-Angabe.<p>
      * @param pVal getypter Request-Parameter aus <tt>HttpRequestParams</tt>
      * @return aufbereiteter Wert
      */
@@ -82,7 +103,7 @@ public class ParameterPreparer
     }
 
     /**
-     * Aufbereitung/Prüfung der TRANSPARENT-Angabe.<p>
+     * Aufbereitung/Prï¿½fung der TRANSPARENT-Angabe.<p>
      * @param pVal getypter Request-Parameter aus <tt>HttpRequestParams</tt>
      * @return aufbereiteter Wert
      */
@@ -94,7 +115,7 @@ public class ParameterPreparer
     }
 
     /**
-     * Aufbereitung/Prüfung der BGCOLOR-Angabe.<p>
+     * Aufbereitung/Prï¿½fung der BGCOLOR-Angabe.<p>
      * @param pVal getypter Request-Parameter aus <tt>HttpRequestParams</tt>
      * @return aufbereiteter Wert
      */
@@ -105,7 +126,7 @@ public class ParameterPreparer
     }
 
     /**
-     * Aufbereitung/Prüfung der WIDTH-Angabe.<p>
+     * Aufbereitung/Prï¿½fung der WIDTH-Angabe.<p>
      * @param pVal getypter Request-Parameter aus <tt>HttpRequestParams</tt>
      * @return aufbereiteter Wert
      */
@@ -120,7 +141,7 @@ public class ParameterPreparer
     }
 
     /**
-     * Aufbereitung/Prüfung der HEIGHT-Angabe.<p>
+     * Aufbereitung/Prï¿½fung der HEIGHT-Angabe.<p>
      * @param pVal getypter Request-Parameter aus <tt>HttpRequestParams</tt>
      * @return aufbereiteter Wert
      */
@@ -135,7 +156,7 @@ public class ParameterPreparer
     }
 
     /**
-     * Aufbereitung/Prüfung der YAW-Angabe.<p>
+     * Aufbereitung/Prï¿½fung der YAW-Angabe.<p>
      * @param pVal getypter Request-Parameter aus <tt>HttpRequestParams</tt>
      * @return aufbereiteter Wert
      */
@@ -146,7 +167,7 @@ public class ParameterPreparer
     }
 
     /**
-     * Aufbereitung/Prüfung der PITCH-Angabe.<p>
+     * Aufbereitung/Prï¿½fung der PITCH-Angabe.<p>
      * @param pVal getypter Request-Parameter aus <tt>HttpRequestParams</tt>
      * @return aufbereiteter Wert
      */
@@ -157,7 +178,7 @@ public class ParameterPreparer
     }
 
     /**
-     * Aufbereitung/Prüfung der DISTANCE-Angabe.<p>
+     * Aufbereitung/Prï¿½fung der DISTANCE-Angabe.<p>
      * @param pVal getypter Request-Parameter aus <tt>HttpRequestParams</tt>
      * @return aufbereiteter Wert
      */
@@ -168,7 +189,7 @@ public class ParameterPreparer
     }
 
     /**
-     * Aufbereitung/Prüfung der AOV-Angabe.<p>
+     * Aufbereitung/Prï¿½fung der AOV-Angabe.<p>
      * @param pVal getypter Request-Parameter aus <tt>HttpRequestParams</tt>
      * @return aufbereiteter Wert
      */
@@ -181,7 +202,7 @@ public class ParameterPreparer
     }
 
     /**
-     * Aufbereitung/Prüfung der EXCEPTIONS-Angabe.<p>
+     * Aufbereitung/Prï¿½fung der EXCEPTIONS-Angabe.<p>
      * @param pVal getypter Request-Parameter aus <tt>HttpRequestParams</tt>
      * @return aufbereiteter Wert
      */
@@ -196,7 +217,7 @@ public class ParameterPreparer
     }
 
     /**
-     * Aufbereitung/Prüfung der QUALITY-Angabe.<p>
+     * Aufbereitung/Prï¿½fung der QUALITY-Angabe.<p>
      * @param pVal getypter Request-Parameter aus <tt>HttpRequestParams</tt>
      * @return aufbereiteter Wert
      */
@@ -209,7 +230,7 @@ public class ParameterPreparer
     }
 
     /**
-     * Aufbereitung/Prüfung der LIGHTINT-Angabe.<p>
+     * Aufbereitung/Prï¿½fung der LIGHTINT-Angabe.<p>
      * @param pVal getypter Request-Parameter aus <tt>HttpRequestParams</tt>
      * @return aufbereiteter Wert
      */

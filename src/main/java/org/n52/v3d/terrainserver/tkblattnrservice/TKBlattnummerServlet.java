@@ -1,3 +1,22 @@
+/***************************************************************************************
+ * Copyright (C) 2011 by 52 North Initiative for Geospatial Open Source Software GmbH  *
+ *                                                                                     *
+ * Contact: Benno Schmidt & Martin May, 52 North Initiative for Geospatial Open Source *
+ * Software GmbH, Martin-Luther-King-Weg 24, 48155 Muenster, Germany, info@52north.org *
+ *                                                                                     *
+ * This program is free software; you can redistribute and/or modify it under the      *
+ * terms of the GNU General Public License version 2 as published by the Free Software *
+ * Foundation.                                                                         *
+ *                                                                                     *
+ * This program is distributed WITHOUT ANY WARRANTY; even without the implied WARRANTY *
+ * OF MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public  *
+ * License for more details.                                                           *
+ *                                                                                     *
+ * You should have received a copy of the GNU General Public License along with this   *
+ * program (see gnu-gpl v2.txt). If not, write to the Free Software Foundation, Inc.,  *
+ * 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA, or visit the Free Software *
+ * Foundation web page, http://www.fsf.org.                                            *
+ **************************************************************************************/
 package org.n52.v3d.terrainserver.tkblattnrservice;
 
 import java.io.*;
@@ -14,19 +33,19 @@ import org.n52.v3d.triturus.web.HttpRequestParams;
 import org.n52.v3d.triturus.web.HttpStandardResponse;
 
 /** 
- * Implementierung eines Web-Dienstes zur Ermittlung des TK-Kartenblatts zu einer Koordinate.<p>
+ * @deprecated
+ * Service implementation to wquery German TK25-Blatt numbers.<br /><br />
+ * <i>German:</i> Implementierung eines Web-Dienstes zur Ermittlung des TK-Kartenblatts zu einer Koordinate.<br />
  * Beispielaufruf:
  * <tt>http://<hostname>/TKBlattnummerServlet?REQUEST=GetBlattnummer&LOCATION=3398000,5726000&SRS=EPSG:31493</tt>
- * <p>
- * @author Benno Schmidt<br>
- * (c) 2004, con terra GmbH & Institute for Geoinformatics<br>
+ * @author Benno Schmidt
  */
 public class TKBlattnummerServlet extends HttpServlet
 {
     private String mCapabilitiesFile; // Einstellung aus Deployment-Deskriptor
 
     /**
-     * liest die Ablaufparameter aus dem Deployment-Deskriptor und überträgt die Werte in entsprechende
+     * liest die Ablaufparameter aus dem Deployment-Deskriptor und ï¿½bertrï¿½gt die Werte in entsprechende
      * Member-Variablen.<p>
      */
     public void fetchInitParameters()
@@ -38,15 +57,15 @@ public class TKBlattnummerServlet extends HttpServlet
     {
         HttpRequestParams lReqParams = new HttpRequestParams();
 
-        // Bekanntgabe der Anfrage-Parameter, damit diese als Defaults verfügbar und/oder damit diese
+        // Bekanntgabe der Anfrage-Parameter, damit diese als Defaults verfï¿½gbar und/oder damit diese
         // getypt sind und somit automatisch geparst werden:
-        lReqParams.addParameter("REQUEST", "String", "GetCapabilities"); // somit als Default verfügbar
-        lReqParams.addParameter("SRS", "String", "EPSG:31493"); // somit als Default verfügbar
+        lReqParams.addParameter("REQUEST", "String", "GetCapabilities"); // somit als Default verfï¿½gbar
+        lReqParams.addParameter("SRS", "String", "EPSG:31493"); // somit als Default verfï¿½gbar
         lReqParams.addParameter("LOCATION", "VgPoint", "0,0"); // somit getypt und automatisch geparst
 
         lReqParams.fetchRequestParameters(pReq);
 
-        // Rückgabe der Session-spezifischen Request-Parameter:
+        // Rï¿½ckgabe der Session-spezifischen Request-Parameter:
         return lReqParams;
     }
 
@@ -93,7 +112,7 @@ public class TKBlattnummerServlet extends HttpServlet
 			    TKBlattLocator loc = new TKBlattLocator();
 			    String tknr;
 
-        	    pResponse.setContentType("text/xml"); // MIME-Typ für Antwort setzen
+        	    pResponse.setContentType("text/xml"); // MIME-Typ fï¿½r Antwort setzen
         	    PrintWriter out = pResponse.getWriter(); // PrintWriter auf die Antwort aufsetzen
 
 	            out.println("<?xml version=\"1.0\" encoding=\"ISO-8859-1\" standalone=\"no\" ?>");

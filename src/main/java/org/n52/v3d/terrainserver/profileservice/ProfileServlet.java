@@ -1,3 +1,22 @@
+/***************************************************************************************
+ * Copyright (C) 2011 by 52 North Initiative for Geospatial Open Source Software GmbH  *
+ *                                                                                     *
+ * Contact: Benno Schmidt & Martin May, 52 North Initiative for Geospatial Open Source *
+ * Software GmbH, Martin-Luther-King-Weg 24, 48155 Muenster, Germany, info@52north.org *
+ *                                                                                     *
+ * This program is free software; you can redistribute and/or modify it under the      *
+ * terms of the GNU General Public License version 2 as published by the Free Software *
+ * Foundation.                                                                         *
+ *                                                                                     *
+ * This program is distributed WITHOUT ANY WARRANTY; even without the implied WARRANTY *
+ * OF MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public  *
+ * License for more details.                                                           *
+ *                                                                                     *
+ * You should have received a copy of the GNU General Public License along with this   *
+ * program (see gnu-gpl v2.txt). If not, write to the Free Software Foundation, Inc.,  *
+ * 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA, or visit the Free Software *
+ * Foundation web page, http://www.fsf.org.                                            *
+ **************************************************************************************/
 package org.n52.v3d.terrainserver.profileservice;
 
 import java.io.*;
@@ -23,14 +42,13 @@ import org.apache.batik.transcoder.TranscoderInput;
 import org.apache.batik.transcoder.TranscoderOutput;
 
 /**
- * Implementierung eines Profildienstes unter Nutzung von POV-Ray als Renderer. Der Dienst lässt sich auch dazu nutzen,
- * punktuell einen Höhenwert abzufragen.<p>
+ * Implementation of a cross-estion generation service.<br /><br />
+ * <i>German:</i> Implementierung eines Profildienstes Der Dienst l&auml;sst sich auch dazu nutzen, punktuell einen
+ * H&ouml;henwert abzufragen.<br />
  * Beispielaufrufe:
  * <tt>http://<hostname>/WebTerrainServlet?REQUEST=GetGraph&SRS=EPSG:31468&DEFLINE=4440675,5271075,0,4449475,5275000,0</tt>
  * <tt>http://<hostname>/WebTerrainServlet?REQUEST=GetElevation&SRS=EPSG:31466&POINT=2592761.3,5741340.4,0.0</tt>
- * <p>
- * @author Benno Schmidt<br>
- * (c) 2004-2006, con terra GmbH & Institute for Geoinformatics<br>
+ * @author Benno Schmidt
  */
 public class ProfileServlet extends HttpServlet
 {
@@ -48,7 +66,7 @@ public class ProfileServlet extends HttpServlet
     private double mMinCellSizeLatLon = 4.629627e-4;
 
     /**
-     * liest die Ablaufparameter aus dem Deployment-Deskriptor und überträgt die Werte in entsprechende
+     * liest die Ablaufparameter aus dem Deployment-Deskriptor und ï¿½bertrï¿½gt die Werte in entsprechende
      * Member-Variablen.<p>
      */
     public void fetchInitParameters()
@@ -76,7 +94,7 @@ public class ProfileServlet extends HttpServlet
     {
         HttpRequestParams lReqParams = new HttpRequestParams();
 
-        // Bekanntgabe der Anfrage-Parameter, damit diese als Defaults verfügbar und/oder damit diese
+        // Bekanntgabe der Anfrage-Parameter, damit diese als Defaults verfï¿½gbar und/oder damit diese
         // getypt sind und somit automatisch geparst werden:
         lReqParams.addParameter("REQUEST", "String", "GetCapabilities");
         lReqParams.addParameter("DEFLINE", "VgLineString", "0.0, 0.0, 0.0, 0.0, 0.0, 0.0");
@@ -86,11 +104,11 @@ public class ProfileServlet extends HttpServlet
         lReqParams.addParameter("HEIGHT", "Integer", "480");
         lReqParams.addParameter("EXAGGERATION", "Double", "5.0");
         lReqParams.addParameter("VISADDS", "Integer", "4");
-        lReqParams.addParameter("POINT", "VgPoint", "0.0, 0.0, 0.0"); // nur für GetElevation-Anfrage
+        lReqParams.addParameter("POINT", "VgPoint", "0.0, 0.0, 0.0"); // nur fï¿½r GetElevation-Anfrage
 
         lReqParams.fetchRequestParameters(pReq);
 
-        // Rückgabe der Session-spezifischen Request-Parameter:
+        // Rï¿½ckgabe der Session-spezifischen Request-Parameter:
         return lReqParams;
     }
 
@@ -120,7 +138,7 @@ public class ProfileServlet extends HttpServlet
         T3dTimeList lTimeProt = new T3dTimeList(); // zur Protokollierung der Rechenzeiten
         lTimeProt.addTimeStamp("init");
 
-        // Eindeutigen Temporärdatei-Rumpf für aktuelle Anfrage festlegen:
+        // Eindeutigen Temporï¿½rdatei-Rumpf fï¿½r aktuelle Anfrage festlegen:
         String lTmpName = "~" + (mCounter++) + "_" + new java.util.Date().getTime();
 
         try {
@@ -146,7 +164,7 @@ public class ProfileServlet extends HttpServlet
             if (! (lRequest.equalsIgnoreCase("GetGraph") || lRequest.equalsIgnoreCase("GetElevation")))
                 throw new T3dException("Illegal request type " + lRequest + "...");
 
-            // Request-Parameter aufbereiten und Wertebereiche prüfen:
+            // Request-Parameter aufbereiten und Wertebereiche prï¿½fen:
             ParameterPreparer pp = new ParameterPreparer();
             lSRS = pp.prepareSRS(lSRS);
             lFormat = pp.prepareFORMAT(lFormat, lRequest);
@@ -168,7 +186,7 @@ public class ProfileServlet extends HttpServlet
             sLogger.debug("ProfileServlet (" + lTmpName + "): Received " + lRequest + " request.");
             lTimeProt.setFinished("init");
 
-            // Höhenmodell berechnen (Gridding):
+            // Hï¿½henmodell berechnen (Gridding):
             lTimeProt.addTimeStamp("dem_access");
             final boolean lDebug = false; // todo: auf 'false' setzen
             if (lDebug)
@@ -218,7 +236,7 @@ public class ProfileServlet extends HttpServlet
                 // Ergebnisbild als Antwort senden:
                 lTimeProt.addTimeStamp("send_response");
                 if (! lSendAsPngImage) {
-                    pResponse.setContentType("image/svg+xml"); // MIME-Typ für Antwort setzen
+                    pResponse.setContentType("image/svg+xml"); // MIME-Typ fï¿½r Antwort setzen
                     BufferedReader lDatRead;
                     try {
                         lDatRead = new BufferedReader(new FileReader(lResFile));
@@ -228,7 +246,7 @@ public class ProfileServlet extends HttpServlet
                     }
                     PrintWriter out = pResponse.getWriter(); // PrintWriter auf die Antwort aufsetzen
                     String line = lDatRead.readLine();
-                    while (line != null) { // generierte Temporärdatei zeilenweise senden
+                    while (line != null) { // generierte Temporï¿½rdatei zeilenweise senden
                         out.println(line);
                         line = lDatRead.readLine();
                     }
@@ -248,19 +266,19 @@ public class ProfileServlet extends HttpServlet
 
                         OutputStream out = pResponse.getOutputStream();
                         ImageIO.setUseCache(false); // wichtig!
-                        pResponse.setContentType(lFormat); // MIME-Typ für Antwort setzen
+                        pResponse.setContentType(lFormat); // MIME-Typ fï¿½r Antwort setzen
                         String resExt = MimeTypeHelper.getFileExtension(lFormat);
                         try {
                             ImageIO.write(lImage, resExt, out); // resExt ist informaler Formatname...
                         }
                         catch (Exception e) {
-                            throw new T3dException("Did not finish PNG image send process. " + e.getMessage(), 103); // todo fehler-nr. prüfen und in doku
+                            throw new T3dException("Did not finish PNG image send process. " + e.getMessage(), 103); // todo fehler-nr. prï¿½fen und in doku
                         }
                         is.close();
                         out.close();
                     }
                     catch (IOException e) {
-                        throw new T3dException("An I/O exception occured. The servlet could not send an image reponse.", 106); // todo fehler-nr. prüfen und in doku
+                        throw new T3dException("An I/O exception occured. The servlet could not send an image reponse.", 106); // todo fehler-nr. prï¿½fen und in doku
                     }
                 }
                 File fSvg = new File(lResFile);
@@ -293,7 +311,7 @@ public class ProfileServlet extends HttpServlet
                     if (lFormat.equalsIgnoreCase("text/comma-separated-values")) lCase=4;
                     if (lCase <= 0 )
                         throw new T3dException("Internal servlet error."); // Kann nicht auftreten
-                    pResponse.setContentType(lFormat); // MIME-Typ für Antwort setzen
+                    pResponse.setContentType(lFormat); // MIME-Typ fï¿½r Antwort setzen
                     PrintWriter out = pResponse.getWriter(); // PrintWriter auf die Antwort aufsetzen
                     switch (lCase) {
                         case 1:
@@ -467,7 +485,7 @@ public class ProfileServlet extends HttpServlet
             lDat.println("DEFLINE: " + pDefLine);
             lDat.println("BBOX: " + pTerrain.getGeometry().envelope());
             lDat.println("BBOX-SIZE: " + pTerrain.getGeometry().envelope().areaXY());
-            lDat.println("CELLSIZE: " + ((GmSimple2dGridGeometry) pTerrain.getGeometry()).getDeltaX()); // äquidist.
+            lDat.println("CELLSIZE: " + ((GmSimple2dGridGeometry) pTerrain.getGeometry()).getDeltaX()); // ï¿½quidist.
             lDat.println("OUTPUT FORMAT: " + pOutputInfo);
             lDat.println("PROCESSING_TIMES [msec]: ");
             String[] lTimeProtStr = pTimeProt.protocol();
@@ -497,7 +515,7 @@ public class ProfileServlet extends HttpServlet
             lDat.println("POINT: " + pPoint);
             lDat.println("BBOX: " + pTerrain.getGeometry().envelope());
             lDat.println("BBOX-SIZE: " + pTerrain.getGeometry().envelope().areaXY());
-            lDat.println("CELLSIZE: " + ((GmSimple2dGridGeometry) pTerrain.getGeometry()).getDeltaX()); // äquidist.
+            lDat.println("CELLSIZE: " + ((GmSimple2dGridGeometry) pTerrain.getGeometry()).getDeltaX()); // ï¿½quidist.
             lDat.println("OUTPUT FORMAT: " + pOutputInfo);
             lDat.println("PROCESSING_TIMES [msec]: ");
             String[] lTimeProtStr = pTimeProt.protocol();

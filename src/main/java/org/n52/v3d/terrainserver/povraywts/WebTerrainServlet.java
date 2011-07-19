@@ -1,3 +1,22 @@
+/***************************************************************************************
+ * Copyright (C) 2011 by 52 North Initiative for Geospatial Open Source Software GmbH  *
+ *                                                                                     *
+ * Contact: Benno Schmidt & Martin May, 52 North Initiative for Geospatial Open Source *
+ * Software GmbH, Martin-Luther-King-Weg 24, 48155 Muenster, Germany, info@52north.org *
+ *                                                                                     *
+ * This program is free software; you can redistribute and/or modify it under the      *
+ * terms of the GNU General Public License version 2 as published by the Free Software *
+ * Foundation.                                                                         *
+ *                                                                                     *
+ * This program is distributed WITHOUT ANY WARRANTY; even without the implied WARRANTY *
+ * OF MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public  *
+ * License for more details.                                                           *
+ *                                                                                     *
+ * You should have received a copy of the GNU General Public License along with this   *
+ * program (see gnu-gpl v2.txt). If not, write to the Free Software Foundation, Inc.,  *
+ * 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA, or visit the Free Software *
+ * Foundation web page, http://www.fsf.org.                                            *
+ **************************************************************************************/
 package org.n52.v3d.terrainserver.povraywts;
 
 import java.io.*;
@@ -40,12 +59,11 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /**
- * Implementierung eines Web Terrain Services (WTS) unter Nutzung von POV-Ray als Renderer.<p>
+ * Web Terrain Service (OGC-WTS 0.x) implementation using POV-Ray as rendering engine.<br /><br />
+ * <i>German:</i> Implementierung eines Web Terrain Services (WTS) unter Nutzung von POV-Ray als Renderer.<br />
  * Beispielaufruf:
  * <tt>http://<hostname>/WebTerrainServlet?REQUEST=GetView&SRS=EPSG:31466&BBOX=2592761.3,5741340.4,2600772.4,5753813.3</tt>
- * <p>
- * @author Benno Schmidt<br>
- * (c) 2004-2006, con terra GmbH & Institute for Geoinformatics<br>
+ * @author Benno Schmidt
  */
 public class WebTerrainServlet extends HttpServlet
 {
@@ -97,7 +115,7 @@ public class WebTerrainServlet extends HttpServlet
     private static final short sBMPOutput = 3;
 
     /**
-     * liest die Ablaufparameter aus dem Deployment-Deskriptor und überträgt die Werte in entsprechende
+     * liest die Ablaufparameter aus dem Deployment-Deskriptor und ï¿½bertrï¿½gt die Werte in entsprechende
      * Member-Variablen.<p>
      */
     public void fetchInitParameters()
@@ -167,7 +185,7 @@ public class WebTerrainServlet extends HttpServlet
     {
         HttpRequestParams lReqParams = new HttpRequestParams();
 
-        // Bekanntgabe der Anfrage-Parameter, damit diese als Defaults verfügbar und/oder damit diese
+        // Bekanntgabe der Anfrage-Parameter, damit diese als Defaults verfï¿½gbar und/oder damit diese
         // getypt sind und somit automatisch geparst werden:
         lReqParams.addParameter("REQUEST", "String", "GetCapabilities");
         lReqParams.addParameter("SRS", "String", "");
@@ -188,7 +206,7 @@ public class WebTerrainServlet extends HttpServlet
         lReqParams.addParameter("VISADDS", "Integer", "4");
         lReqParams.addParameter("TRANSPARENT", "Boolean", "false");
         lReqParams.addParameter("BGCOLOR", "String", "0x000000");
-        lReqParams.addParameter("CACHESCENE", "Boolean", "false"); // > 0 für Caching!
+        lReqParams.addParameter("CACHESCENE", "Boolean", "false"); // > 0 fï¿½r Caching!
         lReqParams.addParameter("EXCEPTIONS", "String", "application/vnd.ogc.se_xml");
         lReqParams.addParameter("QUALITY", "Integer", "75");
         lReqParams.addParameter("LIGHTINT", "Double", "1.0");
@@ -197,7 +215,7 @@ public class WebTerrainServlet extends HttpServlet
 
         lReqParams.fetchRequestParameters(pReq);
 
-        // Rückgabe der Session-spezifischen Request-Parameter:
+        // Rï¿½ckgabe der Session-spezifischen Request-Parameter:
         return lReqParams;
     }
 
@@ -239,10 +257,10 @@ System.out.println("header: " + header + ",  value=" +  (String) headers.nextEle
 }
 }        */
 
-        // Eindeutigen Temporärdatei-Rumpf für aktuelle Anfrage festlegen:
+        // Eindeutigen Temporï¿½rdatei-Rumpf fï¿½r aktuelle Anfrage festlegen:
         String lTmpName = "~" + (mCounter++) + "_" + new java.util.Date().getTime();
 
-        // Objektdefinitionen für Temporärdateien-Verwaltung:
+        // Objektdefinitionen fï¿½r Temporï¿½rdateien-Verwaltung:
         boolean lCacheScene = false;
         TempFileHandler lRequTmpMngr = null;
         boolean lKeepTempFilesInCaseOfError = false;
@@ -314,7 +332,7 @@ System.out.println("header: " + header + ",  value=" +  (String) headers.nextEle
                 throw new T3dException("Illegal request type " + lRequest + "...");
             }
 
-            // Request-Parameter aufbereiten und Wertebereiche prüfen:
+            // Request-Parameter aufbereiten und Wertebereiche prï¿½fen:
             ParameterPreparer pp = new ParameterPreparer();
             lSRS = pp.prepareSRS(lSRS);
             lBBox = pp.prepareBBOX(lBBox, lSRS);
@@ -340,7 +358,7 @@ System.out.println("header: " + header + ",  value=" +  (String) headers.nextEle
 
             if (! lBBox.hasMetricSRS()) {
                 if (lBBox.hasGeographicSRS()) {
-                    // metrisch benötigte Parameter umrechnen
+                    // metrisch benï¿½tigte Parameter umrechnen
                     lExaggeration /= Wgs84Helper.degree2meter;
                     lSearchRadius /= Wgs84Helper.degree2meter;
                 }
@@ -348,7 +366,7 @@ System.out.println("header: " + header + ",  value=" +  (String) headers.nextEle
                     throw new T3dException("Missing SRS support for \"" + lBBox.getSRS() + "\".");
             }
 
-            // Temporärdateien-Verwaltung gewährleisten und ggf. Session-Objekt holen:
+            // Temporï¿½rdateien-Verwaltung gewï¿½hrleisten und ggf. Session-Objekt holen:
             WTSSession lWtsSession = new WTSSession();
             lWtsSession = this.setUpSession(lWtsSession, lCacheScene, pRequest, lBBox, lDrape, lWmsLayers);
             HttpSession lSession = lWtsSession.getHttpSession();
@@ -357,7 +375,7 @@ System.out.println("header: " + header + ",  value=" +  (String) headers.nextEle
                 lSessionTmpMngr = lWtsSession.getSessionTempFileHandler();
             lTimeProt.setFinished("init");
 
-            // Höhenmodell berechnen (Gridding):
+            // Hï¿½henmodell berechnen (Gridding):
             lTimeProt.addTimeStamp("dem_access");
             VgElevationGrid lTerrain = this.setUpTerrain(lCacheScene, lSession, lBBox, lHeight, lWidth, lSearchRadius);
             lTimeProt.setFinished("dem_access");
@@ -386,7 +404,7 @@ System.out.println("header: " + header + ",  value=" +  (String) headers.nextEle
             lTimeProt.addTimeStamp("rendering");
             this.configureRenderer(lScene, lWidth, lHeight, lTmpName, lLightInt);
             String lGifEncodedDEM = null;
-            if (lCacheScene) // Dateinamen für GIF-kodiertes Höhenmodell aus Session holen
+            if (lCacheScene) // Dateinamen fï¿½r GIF-kodiertes Hï¿½henmodell aus Session holen
                 lGifEncodedDEM = (String) lSession.getAttribute("demgif_" + lSession.getId());
             boolean lInstanceOverflow = false;
             try {
@@ -402,12 +420,12 @@ System.out.println("header: " + header + ",  value=" +  (String) headers.nextEle
                             Thread.sleep(lDelay);
                         }
                         else {
-                            // Bem.: Für lTimeSliceStart <= lCurrTime keine Verzögerung
+                            // Bem.: Fï¿½r lTimeSliceStart <= lCurrTime keine Verzï¿½gerung
                             if (mLocalDebug) System.out.println("Rendering process will not be be delayed..."); 
                         }
                     }
                     else {
-                        // keine freie Zeitscheibe verfügbar
+                        // keine freie Zeitscheibe verfï¿½gbar
                         lKeepTempFilesInCaseOfError = false;
                         throw new T3dException("The server is too busy at the moment. Please try again later.", 100);
                     }
@@ -582,14 +600,14 @@ System.out.println("header: " + header + ",  value=" +  (String) headers.nextEle
                     String oldDrape = (String) lSession.getAttribute("rqDRAPE_" + lSession.getId()); // DRAPE
                     String oldWmsLayers = (String) lSession.getAttribute("rqWMSLAYERS_" + lSession.getId()); // WMSLAYERS
                     boolean changesBBox = false, changesDrp = false;
-                    // BBOX seit letzter Anfrage geändert?
+                    // BBOX seit letzter Anfrage geï¿½ndert?
                     if (oldBBox != null && !oldBBox.isSpatiallyEquivalent(pBBox)) changesBBox = true;
-                    // DRAPE seit letzter Anfrage geändert?
+                    // DRAPE seit letzter Anfrage geï¿½ndert?
                     if (oldDrape != null && oldDrape.compareTo(pDrape) != 0) changesDrp = true;
-                    // WMSLAYERS seit letzter Anfrage geändert?
+                    // WMSLAYERS seit letzter Anfrage geï¿½ndert?
                     if (oldWmsLayers != null && oldWmsLayers.compareTo(pWmsLayers) != 0) changesDrp = true;
 
-                    // ... und im Falle relevanter Änderungen Cache-Inhalte leeren:
+                    // ... und im Falle relevanter ï¿½nderungen Cache-Inhalte leeren:
                     if (changesBBox) {
                         lSession.removeAttribute("terrain_" + lSession.getId());
                         lSessionTmpMngr.removeTempFile((String) lSession.getAttribute("demgif_" + lSession.getId()));
@@ -606,7 +624,7 @@ System.out.println("header: " + header + ",  value=" +  (String) headers.nextEle
             }
         }
         else {
-            // Für CACHESCENE=false ggf. Objekte aus vorherigen Aufrufen mit CACHESCENE=true aus Session entfernen:
+            // Fï¿½r CACHESCENE=false ggf. Objekte aus vorherigen Aufrufen mit CACHESCENE=true aus Session entfernen:
             lSession = pRequest.getSession(false);
             if (lSession != null) {
                 lSession.removeAttribute("shndlr_" + lSession.getId());
@@ -627,9 +645,9 @@ System.out.println("header: " + header + ",  value=" +  (String) headers.nextEle
         boolean pCacheScene, HttpSession pSession, GmEnvelope pBBox, int pHeight, int pWidth, double pSearchRadius)
     {
         VgElevationGrid lTerrain = null;
-        if (pCacheScene) // Höhenmodell aus Session holen
+        if (pCacheScene) // Hï¿½henmodell aus Session holen
             lTerrain = (VgElevationGrid) pSession.getAttribute("terrain_" + pSession.getId());
-        if (lTerrain == null) { // CACHESCENE nicht gesetzt oder kein gültiges Terrain in Session
+        if (lTerrain == null) { // CACHESCENE nicht gesetzt oder kein gï¿½ltiges Terrain in Session
             DEMServiceHelpers lHlp = new DEMServiceHelpers(mMaxArea);
             lHlp.setLocalDebug(mLocalDebug);
             double lCellSize = Math.min(pBBox.getExtentX()/pHeight, pBBox.getExtentY()/pWidth);
@@ -678,7 +696,7 @@ System.out.println("header: " + header + ",  value=" +  (String) headers.nextEle
             lDrapeFile = (String)
                 pWtsSession.getHttpSession().getAttribute("drape_" + pWtsSession.getHttpSession().getId());
 
-        if (lDrapeFile == null) { // CACHESCENE nicht gesetzt oder kein gültiger Drape-Dateiname in Session
+        if (lDrapeFile == null) { // CACHESCENE nicht gesetzt oder kein gï¿½ltiger Drape-Dateiname in Session
             switch (lCase) {
                 case 1: // kein Drape
                     lDrapeFile = mDefaultDrape; // lokale Drape-Datei
@@ -711,7 +729,7 @@ System.out.println("header: " + header + ",  value=" +  (String) headers.nextEle
                     pWtsSession.getRequTempFileHandler().addTempFile(lDrapeFile);
             }
         }
-        // Nachbedingung: lDrapeFile enthält lokalen Pfad für Bilddatei
+        // Nachbedingung: lDrapeFile enthï¿½lt lokalen Pfad fï¿½r Bilddatei
         return lDrapeFile;
     }
 
@@ -720,7 +738,7 @@ System.out.println("header: " + header + ",  value=" +  (String) headers.nextEle
     {
         // 1. VsSimpleScene instanzieren und Relief setzen
         VsSimpleScene lScene = new PovrayScene();
-        // Statt PovrayScene könnte hier eine beliebige andere VsSimpleScene-Implementierung verwendet werden, da die
+        // Statt PovrayScene kï¿½nnte hier eine beliebige andere VsSimpleScene-Implementierung verwendet werden, da die
         // Szene nur zur Bestimmung einer Abstandsvorgabe dient...
         lScene.setTerrain(pTerrain);
         lScene.setDefaultExaggeration(pExaggeration);
@@ -757,7 +775,7 @@ System.out.println("header: " + header + ",  value=" +  (String) headers.nextEle
         VsViewpoint lViewpoint = new VsViewpoint();
         lCam.addViewpoint(lViewpoint);
 
-        // Prüfen, ob im Weiteren orthografische Ansicht zu generieren ist:
+        // Prï¿½fen, ob im Weiteren orthografische Ansicht zu generieren ist:
         boolean orthographicView = false;
         if (Math.abs(lFovy) < 0.001) // eigentl.: falls lFovy = 0
             orthographicView = true;
@@ -848,7 +866,7 @@ System.out.println("header: " + header + ",  value=" +  (String) headers.nextEle
             lScene.drawTerrainPedestal(true);
         }
 
-        // Generierte Szene zurückgeben:
+        // Generierte Szene zurï¿½ckgeben:
     	return lScene;
     }
 
@@ -871,11 +889,11 @@ System.out.println("header: " + header + ",  value=" +  (String) headers.nextEle
         String layers[] = lWmsLayers.split(",");
         float resFact = (float) pWmsRes;
         WMSRequestConfig lWmsRequest = new WMSRequestConfig(
-            lDrapeFile, // URL-Präfix
+            lDrapeFile, // URL-Prï¿½fix
             layers, // abzufragende Layer
             lBBox, // BBox
             lSRS, // SRS
-            Math.round(((float) pWidth) * resFact), Math.round(((float) pHeight) * resFact), // Bildbreite und -höhe
+            Math.round(((float) pWidth) * resFact), Math.round(((float) pHeight) * resFact), // Bildbreite und -hï¿½he
             "image/jpeg"); // Bildformat // todo
         lWmsRequest.setStyles(true, "");
 
@@ -894,7 +912,7 @@ System.out.println("header: " + header + ",  value=" +  (String) headers.nextEle
         return resFile;
     }
 
-    private String getImage(String pTmpName, String pDrapeURL, boolean pHttps) // todo: HTTPS-Zugriff wird noch nicht unterstützt
+    private String getImage(String pTmpName, String pDrapeURL, boolean pHttps) // todo: HTTPS-Zugriff wird noch nicht unterstï¿½tzt
     {
         if (mWebConnectProxySet) {
             System.setProperty("proxySet", "true");
@@ -936,7 +954,7 @@ System.out.println("header: " + header + ",  value=" +  (String) headers.nextEle
         ((PovrayScene) pScene).setImageFormat("image/png");
         ((PovrayScene) pScene).setImageSize(pWidth, pHeight);
         ((PovrayScene) pScene).setTempName(pTmpName);
-        ((PovrayScene) pScene).setQuality((short) 3); // erstmal nicht von außen konfigurierbar
+        ((PovrayScene) pScene).setQuality((short) 3); // erstmal nicht von auï¿½en konfigurierbar
         ((PovrayScene) pScene).setLightIntensity(2. * pLightIntensity);
         ((PovrayScene) pScene).setDisplayVisible(false);
     }
@@ -971,9 +989,9 @@ System.out.println("header: " + header + ",  value=" +  (String) headers.nextEle
         if (! ready)
             throw new T3dException("An I/O exception occured. The renderer did not generate an image file.", 403);
 
-        // Copyright-Text und Nordpfeil ergänzen:
+        // Copyright-Text und Nordpfeil ergï¿½nzen:
         this.addAnnotations(lImage, pHeight, pWidth, pPitch, pYaw, pDrawNorthArrow);
-        // Ggf. weitere Information (Hints) ergänzen:
+        // Ggf. weitere Information (Hints) ergï¿½nzen:
         if (pHints)
             this.addHints(lImage, pTerrain, pDistance, pYaw, pExaggeration);
 
@@ -991,7 +1009,7 @@ System.out.println("header: " + header + ",  value=" +  (String) headers.nextEle
                 mCopyrightTextColor.getRed(), mCopyrightTextColor.getGreen(), mCopyrightTextColor.getBlue()));
 
             // 1. Copyright-Vermerk
-            // Etwas unschön: Durch JPEG-Komprimierung wird Text (insb. bei kleiner Font-Größe) wird unscharf...
+            // Etwas unschï¿½n: Durch JPEG-Komprimierung wird Text (insb. bei kleiner Font-Grï¿½ï¿½e) wird unscharf...
             // TODO: Abhilfe evtl. durch Hintergrund?
             Font font = new Font(mCopyrightTextFont, Font.BOLD /* Style als int, siehe ggf. API-Dok.*/, mCopyrightTextSize);
             g.setFont(font);
@@ -1027,7 +1045,7 @@ System.out.println("header: " + header + ",  value=" +  (String) headers.nextEle
                 // Ellipse zeichnen:
                 g.setStroke(new BasicStroke(2.f, BasicStroke.CAP_BUTT, BasicStroke.JOIN_ROUND));
                 g.drawOval(mx - rx, my - ry, 2 * rx, 2 * ry);
-                // Striche für Pfeil zeichnen:
+                // Striche fï¿½r Pfeil zeichnen:
 
                 g.setStroke(new BasicStroke(1.f, BasicStroke.CAP_BUTT, BasicStroke.JOIN_ROUND));
 
@@ -1097,7 +1115,7 @@ System.out.println("header: " + header + ",  value=" +  (String) headers.nextEle
                     catch (Exception e) {
                         throw new T3dException("Did not finish PNG image send process. " + e.getMessage(), 103);
                     }
-                    // out.flush(); // Flushing besser vermeiden, damit Server die Länge der Anbtweort bestimmen kann
+                    // out.flush(); // Flushing besser vermeiden, damit Server die Lï¿½nge der Anbtweort bestimmen kann
                     break;
                 case sJPEGOutput:
                     try {
@@ -1114,11 +1132,11 @@ System.out.println("header: " + header + ",  value=" +  (String) headers.nextEle
                     break;
                 case sBMPOutput:
                     try {
-                        // Merkwürdig, dass nachstehender Code praktisch das korrekte Resultat liefert... (todo)
+                        // Merkwï¿½rdig, dass nachstehender Code praktisch das korrekte Resultat liefert... (todo)
                         pResponse.setContentType("image/bmp");
                         JPEGImageEncoder enc = JPEGCodec.createJPEGEncoder(out); // JPEG-Encoder instanziieren
                         JPEGEncodeParam prm = enc.getDefaultJPEGEncodeParam(lImage);
-                        prm.setQuality(1.0f, false); // Qualität auf 100% setzen
+                        prm.setQuality(1.0f, false); // Qualitï¿½t auf 100% setzen
                         enc.setJPEGEncodeParam(prm);
                         enc.encode(lImage); // Bild als JPG encoden und an Client senden
                         ImageIO.write(lImage, "jpg", out); // !
@@ -1137,10 +1155,10 @@ System.out.println("header: " + header + ",  value=" +  (String) headers.nextEle
     private void removeTempFiles(TempFileHandler pRequTmpMngr, TempFileHandler pSessionTmpMngr, boolean pCacheScene)
     {
         if (pRequTmpMngr != null)
-            pRequTmpMngr.removeTempFiles();  // nach jeder HTTP-Anfrage zu löschende Temporärdateien
+            pRequTmpMngr.removeTempFiles();  // nach jeder HTTP-Anfrage zu lï¿½schende Temporï¿½rdateien
 
         if (! pCacheScene && pSessionTmpMngr != null)
-            pSessionTmpMngr.removeTempFiles(); // nach jeder Session zu löschende Temporärdateien
+            pSessionTmpMngr.removeTempFiles(); // nach jeder Session zu lï¿½schende Temporï¿½rdateien
     }
 
     private void logGetCapabilitiesInfo(String pTmpName, HttpServletRequest pRequest)
@@ -1176,7 +1194,7 @@ System.out.println("header: " + header + ",  value=" +  (String) headers.nextEle
             lDat.println("SESSION-ID: " + pRequest.getRequestedSessionId());
             lDat.println("BBOX: " + pTerrain.getGeometry().envelope());
             lDat.println("BBOX-SIZE: " + pTerrain.getGeometry().envelope().areaXY());
-            lDat.println("CELLSIZE: " + ((GmSimple2dGridGeometry) pTerrain.getGeometry()).getDeltaX()); // äquidist.
+            lDat.println("CELLSIZE: " + ((GmSimple2dGridGeometry) pTerrain.getGeometry()).getDeltaX()); // ï¿½quidist.
             lDat.println("OUTPUT FORMAT: " + pOutputInfo);
             lDat.println("PROCESSING_TIMES [msec]: ");
             String[] lTimeProtStr = pTimeProt.protocol();

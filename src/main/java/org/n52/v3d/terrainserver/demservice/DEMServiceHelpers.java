@@ -1,3 +1,22 @@
+/***************************************************************************************
+ * Copyright (C) 2011 by 52 North Initiative for Geospatial Open Source Software GmbH  *
+ *                                                                                     *
+ * Contact: Benno Schmidt & Martin May, 52 North Initiative for Geospatial Open Source *
+ * Software GmbH, Martin-Luther-King-Weg 24, 48155 Muenster, Germany, info@52north.org *
+ *                                                                                     *
+ * This program is free software; you can redistribute and/or modify it under the      *
+ * terms of the GNU General Public License version 2 as published by the Free Software *
+ * Foundation.                                                                         *
+ *                                                                                     *
+ * This program is distributed WITHOUT ANY WARRANTY; even without the implied WARRANTY *
+ * OF MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public  *
+ * License for more details.                                                           *
+ *                                                                                     *
+ * You should have received a copy of the GNU General Public License along with this   *
+ * program (see gnu-gpl v2.txt). If not, write to the Free Software Foundation, Inc.,  *
+ * 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA, or visit the Free Software *
+ * Foundation web page, http://www.fsf.org.                                            *
+ **************************************************************************************/
 package org.n52.v3d.terrainserver.demservice;
 
 import java.util.ArrayList;
@@ -22,41 +41,47 @@ import org.n52.v3d.triturus.t3dutil.T3dColor;
 import org.n52.v3d.triturus.t3dutil.MpHypsometricColor;
 
 /**
- * Helfermethoden für <tt>serverapp.DEMService.DEMServlet</tt> und <tt>serverapp.PovrayWTS.WebTerrainServlet</tt>.<p>
- * Die Verwendung dieser Helferklasse sollte sich auf die beiden genannten Servlets beschränken, in denen ausgehend
- * von im TK 25-Blattschnitt abgelegten Quelldateien ein Höhenmodell errechnet wird.
- * <p>
- * @author Benno Schmidt<br>
- * (c) 2003-2004, con terra GmbH & Institute for Geoinformatics<br>
+ * Helpers used by <tt>serverapp.DEMService.DEMServlet</tt> and <tt>serverapp.PovrayWTS.WebTerrainServlet</tt>.
+ * <br /><br />
+ * <i>German:</i> Helfermethoden f&uuml;r <tt>serverapp.DEMService.DEMServlet</tt> und
+ * <tt>serverapp.PovrayWTS.WebTerrainServlet</tt>.<br />
+ * Die Verwendung dieser Helferklasse sollte sich auf die beiden genannten Servlets beschr&auml;nken, in denen ausgehend
+ * von im TK 25-Blattschnitt abgelegten Quelldateien ein H&ouml;henmodell errechnet wird.
+ * @author Benno Schmidt
  */
 public class DEMServiceHelpers
 {
-    private boolean mLocalDebug = false; // kann für Debug-Zwecke gesetzt werden
+    private boolean mLocalDebug = false; // kann fï¿½r Debug-Zwecke gesetzt werden
 
     private double mMaxArea = 1000000000.;
-    private String[] mMissingGridCells = null; // im Fehlerfall Information über nicht belegte Gitterzellen
+    private String[] mMissingGridCells = null; // im Fehlerfall Information ï¿½ber nicht belegte Gitterzellen
 
     /**
-     * Konstruktor. Als Parameter ist ein Wert für den maximalen Flächeninhalt des zu berechnenden Raumauasschnitts
-     * anzugeben.<p>
-     * @param pMaxArea maximale Flächengröße
+     * Constructor.<br /><br />
+     * <i>German:</i> Konstruktor. Als Parameter ist ein Wert f&uuml;r den maximalen Fl&auml;cheninhalt des zu
+     * berechnenden Raumauasschnitts anzugeben.
+     * todo: engl. doc of parameters
+     * @param pMaxArea maximale Flï¿½chengrï¿½ï¿½e
      */
     public DEMServiceHelpers(double pMaxArea) {
         mMaxArea = pMaxArea;
     }
 
     /**
-     * berechnet ein Höhenmodell aus im TK 25-Blattschnitt organisierten Quellmodellen.<p>
-     * Können nicht alle Gitterpunkte belegt werden, wird eine <tt>T3dException</tt> geworfen. Falls der Debug-Modus
-     * gesetzt ist( <tt>this.setLocalDebug(true)</tt>), enthält das über <tt>this.missingGridCells()</tt> abfragbare
-     * String-Array enthält die visuell aufbereitete Information über die nicht belegbaren Zellen.<p>
+     * calculated an elevation-model from source models referring to the German TK 25-tiles.<br /><br />
+     * <i>German:</i> berechnet ein H&ouml;henmodell aus im TK 25-Blattschnitt organisierten Quellmodellen.<br />
+     * K&ouml;nnen nicht alle Gitterpunkte belegt werden, wird eine <tt>T3dException</tt> geworfen. Falls der
+     * Debug-Modus gesetzt ist(<tt>this.setLocalDebug(true)</tt>), enth&auml;lt das &uuml;ber
+     * <tt>this.missingGridCells()</tt> abfragbare String-Array die visuell aufbereitete Information &uuml;ber die nicht
+     * belegbaren Zellen.
+     * todo: engl. doc of parameters
      * @param pPnt1 erster Eckpunkt des Zielmodells
      * @param pPnt2 zweiter Eckpunkt des Zielmodells
      * @param pCellSize Gitterabstand des Zielmodells
      * @param pSearchRadius Suchradius
-     * @param pTileLocator Bezeichner für verwendete Kachelung
+     * @param pTileLocator Bezeichner fï¿½r verwendete Kachelung
      * @param pSrcGrdPath Verzeichnis der Quelldateien
-     * @return berechnetes Höhenmodell
+     * @return berechnetes Hï¿½henmodell
      * @see DEMServiceHelpers#missingGridCells
      */
     public VgElevationGrid setUpDEM(
@@ -69,17 +94,21 @@ public class DEMServiceHelpers
     }
 
     /**
-     * berechnet ein Höhenmodell aus im TK 25-Blattschnitt organisierten Quellmodellen. Das Ergebnismodell wird dabei
-     * persistent in eine Datei geschrieben.<p>
-     * Können nicht alle Gitterpunkte belegt werden, wird eine <tt>T3dException</tt> geworfen. Falls der Debug-Modus
-     * gesetzt ist( <tt>this.setLocalDebug(true)</tt>), enthält das über <tt>this.missingGridCells()</tt> abfragbare
-     * String-Array enthält die visuell aufbereitete Information über die nicht belegbaren Zellen.<p>
+     * calculated an elevation-model from source models referring to the German TK 25-tiles. The result grid will be
+     * written to a file.<br /><br />
+     * <i>German:</i> berechnet ein H&ouml;henmodell aus im TK 25-Blattschnitt organisierten Quellmodellen. Das
+     * Ergebnismodell wird dabei persistent in eine Datei geschrieben.<br />
+     * K&ouml;nnen nicht alle Gitterpunkte belegt werden, wird eine <tt>T3dException</tt> geworfen. Falls der
+     * Debug-Modus gesetzt ist(<tt>this.setLocalDebug(true)</tt>), enth&auml;lt das &uuml;ber
+     * <tt>this.missingGridCells()</tt> abfragbare String-Array die visuell aufbereitete Information &uuml;ber die nicht
+     * belegbaren Zellen.
+     * todo: engl. doc of parameters
      * @param pPnt1 erster Eckpunkt des Zielmodells
      * @param pPnt2 zweiter Eckpunkt des Zielmodells
      * @param pCellSize Gitterabstand des Zielmodells
      * @param pSearchRadius Suchradius
-     * @param pTileLocator Bezeichner für verwendete Kachelung
-     * @param pFormat Zielformat gemäß Service-Capabilities
+     * @param pTileLocator Bezeichner fï¿½r verwendete Kachelung
+     * @param pFormat Zielformat gemï¿½ï¿½ Service-Capabilities
      * @param pSrcGrdPath Verzeichnis der Quelldateien
      * @param pDestFilePath Verzeichnis zur Ablage der Ergebnisdatei
      * @param pTmpName Zieldateiname ohne Pfad und Extension
@@ -125,7 +154,7 @@ public class DEMServiceHelpers
             throw new T3dException(
                 "Destination grid size exceeds Service-internal size-limit (" + ((long) (mMaxArea/1.e6)) + ")! "
                 + "Please scale-down your BBOX.", 200);
-            // Sonst gäbe es auch schnell einen OutOfMemory-Fehler, falls keine weitere Maßnahmen veranlasst werden...
+            // Sonst gï¿½be es auch schnell einen OutOfMemory-Fehler, falls keine weitere Maï¿½nahmen veranlasst werden...
         }
         GmSimple2dGridGeometry lGrdGeom = this.constructDestinationGrid(pPnt1, pPnt2, pCellSize);
         if (mLocalDebug) System.out.println("Ziel-Gitter: " + lGrdGeom.toString());
@@ -146,7 +175,7 @@ public class DEMServiceHelpers
                     throw new T3dException("Missing elevation information "
                         + "(" + TKBlattLocator.blattnummer(hi, lo) + ", " + pPnt1.getSRS() + ", " + filename + ").", 201);
                 }
-                // Gitterwerte traversieren und an lPointList hängen:
+                // Gitterwerte traversieren und an lPointList hï¿½ngen:
                 if (mLocalDebug)
                     System.out.println("Aufbau der Punktliste...");
                 VgPoint vertex ;
@@ -185,10 +214,10 @@ public class DEMServiceHelpers
                 MpHypsometricColor colMapper = new MpSimpleHypsometricColor();
                 double elev[] = {30., 100., 300., 900.};
                 T3dColor cols[] = {
-                    new T3dColor(0.0f, 0.8f, 0.0f), // Grün
+                    new T3dColor(0.0f, 0.8f, 0.0f), // Grï¿½n
                     new T3dColor(1.0f, 1.0f, 0.5f), // Blassgelb
                     new T3dColor(0.78f, 0.27f, 0.0f), // Braun
-                    new T3dColor(0.82f, 0.2f, 0.0f)}; // Rötlichbraun
+                    new T3dColor(0.82f, 0.2f, 0.0f)}; // Rï¿½tlichbraun
                 ((MpSimpleHypsometricColor) colMapper).setPalette(elev, cols, true);
                 lGridWriter.setHypsometricColorMapper(colMapper);
             }
@@ -257,7 +286,7 @@ public class DEMServiceHelpers
         int nx = ((int) Math.floor(lEnv.getExtentX() / pCellSize)) + 1;
         int ny = ((int) Math.floor(lEnv.getExtentY() / pCellSize)) + 1;
         if (mLocalDebug)
-            System.out.println("" + nx + " x " + ny + " Elemente großes Lattice wird aufgebaut...");
+            System.out.println("" + nx + " x " + ny + " Elemente groï¿½es Lattice wird aufgebaut...");
 
         return new GmSimple2dGridGeometry(
             nx, ny,
@@ -266,14 +295,17 @@ public class DEMServiceHelpers
     }
 
     /**
-     * führt das "Gridding" für die angegebene Gitter-Geometrie aus.<p>
-     * Können nicht alle Gitterpunkte belegt werden, wird eine <tt>T3dException</tt> geworfen. Falls der Debug-Modus
-     * gesetzt ist( <tt>this.setLocalDebug(true)</tt>), enthält das über <tt>this.missingGridCells()</tt> abfragbare
-     * String-Array enthält die visuell aufbereitete Information über die nicht belegbaren Zellen.<p>
+     * performs the gridding-process for the given grid gfeometry.<br /><br />
+     * <i>German:</i> f&uuml;hrt das "Gridding" f&uuml;r die angegebene Gitter-Geometrie aus.<br />
+     * K&ouml;nnen nicht alle Gitterpunkte belegt werden, wird eine <tt>T3dException</tt> geworfen. Falls der
+     * Debug-Modus gesetzt ist(<tt>this.setLocalDebug(true)</tt>), enth&auml;lt das &uuml;ber
+     * <tt>this.missingGridCells()</tt> abfragbare String-Array die visuell aufbereitete Information &uuml;ber die nicht
+     * belegbaren Zellen.
+     * todo: engl. doc of parameters
      * @param pPointList Quell-Punkte (jeweils mit x-, y- und z-Koordinate)
      * @param pGrdGeom Gitter-Geometrie (2D)
      * @param pSearchRadius Suchradius
-     * @return Gitter mit belegten Höhenwerten
+     * @return Gitter mit belegten Hï¿½henwerten
      * @see DEMServiceHelpers#missingGridCells
      */
     public GmSimpleElevationGrid gridding(ArrayList pPointList, GmSimple2dGridGeometry pGrdGeom, double pSearchRadius)
@@ -295,9 +327,9 @@ public class DEMServiceHelpers
                     new FltPointSet2ElevationGrid(pGrdGeom, FltPointSet2ElevationGrid.cInverseDist, pSearchRadius);
 
                 if (mLocalDebug) {
-                    System.out.println("benötigter Heap-Speicher für Ziel-Gitter: " +
+                    System.out.println("benï¿½tigter Heap-Speicher fï¿½r Ziel-Gitter: " +
                         (lGridder.estimateMemoryConsumption() / 1000) + " KBytes");
-                    System.out.println("Starte Gridding für " + pPointList.size() + " Eingabepunkte...");
+                    System.out.println("Starte Gridding fï¿½r " + pPointList.size() + " Eingabepunkte...");
                 }
 
                 lResGrid = lGridder.transform(pPointList);
@@ -330,10 +362,13 @@ public class DEMServiceHelpers
     }
 
     /**
-     * liefert die Information über die nicht belegbaren Gitterzellen. Diese Information ist nur dann verfügbar, wenn
-     * es in der Methode <tt>this.gridding()</tt> zu einem entsprechenden Fehler kommt. Zudem muss der Debug-Modus
-     * gesetzt sein ( <tt>this.setLocalDebug(true)</tt>). Sonst wird der Wert <i>null</i> zurückgegeben.<p>
-     * @return String-Array mit der visuell aufbereitete Information über die nicht belegbaren Gitterzellen
+     * gives information about the grid cells to that no elevation-value could be assigned.<br /><br />
+     * <i>German:</i> liefert die Information &uuml;ber die nicht belegbaren Gitterzellen. Diese Information ist nur
+     * dann verf&uuml;gbar, wenn es in der Methode <tt>this.gridding()</tt> zu einem entsprechenden Fehler kommt. Zudem
+     * muss der Debug-Modus gesetzt sein (<tt>this.setLocalDebug(true)</tt>). Sonst wird der Wert <i>null</i>
+     * zur&uuml;ckgegeben.
+     * todo: engl. doc of parameters
+     * @return String-Array mit der visuell aufbereitete Information ï¿½ber die nicht belegbaren Gitterzellen
      * @see DEMServiceHelpers#gridding
      */
     public String[] missingGridCells() {
@@ -341,12 +376,14 @@ public class DEMServiceHelpers
     }
 
     /**
-     * liefert Information zu dem angegebenen Format. Über den Parameter <tt>pInfoType</tt> wird der Inhalt der
-     * Abfrage gesteuert: Für "ext" wird die Datei-Extension (ohne .) geliefert, für "dest" die Servlet-interne
-     * Zielformatsbezeichnung und für "mime" der MIME-Typ für die generierte Antwort.<p>
+     * provides information about the given format.<br /><br />
+     * <i>German:</i> liefert Information zu dem angegebenen Format. &Uuml;ber den Parameter <tt>pInfoType</tt> wird der
+     * Inhalt der Abfrage gesteuert: F&uuml;r "ext" wird die Datei-Extension (ohne .) geliefert, f&uuml;r "dest" die
+     * Servlet-interne Zielformatsbezeichnung und f&uuml;r "mime" der MIME-Typ f&uuml;r die generierte Antwort.
+     * todo: engl. doc of parameters
      * @param pFormat Triturus-interne Formatbezeichnung oder MIME-Typ (falls Standardformat)
      * @param pInfoType "ext", "dest", "mime"
-     * @return Zeichenkette (Inhalt abhängig von abgefragtem Informationstyp)
+     * @return Zeichenkette (Inhalt abhï¿½ngig von abgefragtem Informationstyp)
      */
     public String formatInfo(String pFormat, String pInfoType)
     {
@@ -418,7 +455,9 @@ public class DEMServiceHelpers
     }
 
     /**
-     * setzt des Modus für die Konsolen-Ausgabe von Kontrollausgaben.<p>
+     * sets the console-output mode for control outputs.<br /><br />
+     * <i>German:</i> setzt des Modus f&uuml;r die Konsolen-Ausgabe von Kontrollausgaben.
+     * todo: engl. doc of parameters
      * @param pVal <i>true</i>, falls Ausgabe erfolgen soll, sonst <i>false</i> (Voreinstellung)
      */
     public void setLocalDebug(boolean pVal) {

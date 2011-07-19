@@ -1,3 +1,22 @@
+/***************************************************************************************
+ * Copyright (C) 2011 by 52 North Initiative for Geospatial Open Source Software GmbH  *
+ *                                                                                     *
+ * Contact: Benno Schmidt & Martin May, 52 North Initiative for Geospatial Open Source *
+ * Software GmbH, Martin-Luther-King-Weg 24, 48155 Muenster, Germany, info@52north.org *
+ *                                                                                     *
+ * This program is free software; you can redistribute and/or modify it under the      *
+ * terms of the GNU General Public License version 2 as published by the Free Software *
+ * Foundation.                                                                         *
+ *                                                                                     *
+ * This program is distributed WITHOUT ANY WARRANTY; even without the implied WARRANTY *
+ * OF MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public  *
+ * License for more details.                                                           *
+ *                                                                                     *
+ * You should have received a copy of the GNU General Public License along with this   *
+ * program (see gnu-gpl v2.txt). If not, write to the Free Software Foundation, Inc.,  *
+ * 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA, or visit the Free Software *
+ * Foundation web page, http://www.fsf.org.                                            *
+ **************************************************************************************/
 package org.n52.v3d.terrainserver.demservice;
 
 import java.io.*;
@@ -20,17 +39,17 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /**
- * Implementierung eines Web-Dienstes für den Zugriff auf Höhenmodelle.<p>
+ * Implementation of an elevation-model access service.<br /><br />
+ * <i>German:</i> Implementierung eines Web-Dienstes f&uuml;r den Zugriff auf H&ouml;henmodelle.<br />
  * Beispielaufruf:
- * <tt>http://<hostname>/DEMServlet?REQUEST=GetDEM&SRS=EPSG:31466&BBOX=2590000,5740000,2600000,5750000&CELLSIZE=100&FORMAT=ArcIGrd</tt><p>
- * Bem.: Der Dienst ist konform zur W3DS-Spezifikation des "3D-Piloten" der GDI-NRW.<p>
- * Voraussetzung für die Lauffähigkeit des Servlets ist eine entsprechende Organisation der Höhenmodelldaten. Die
- * Modelle müssen TK 25-Blattschnitt-weise als ArcInfo-ASCII-Grids unter <tt>\dgm&lt;MM&gt;&lt;NN&gt;.asc</tt> abgelegt
- * sein, wobei &lt;MM&gt;, &lt;NN&gt; die TK-Blattnummer bezeichnen. Das Quellverzeichnis ist über den Parameter
- * "SourceGridPath" im Deployment-Deskriptor einstellbar.
- * <p>
- * @author Benno Schmidt<br>
- * (c) 2003-2006, con terra GmbH & Institute for Geoinformatics<br>
+ * <tt>http://<hostname>/DEMServlet?REQUEST=GetDEM&SRS=EPSG:31466&BBOX=2590000,5740000,2600000,5750000&CELLSIZE=100&FORMAT=ArcIGrd</tt>
+ * <br />
+ * Bem.: Der Dienst ist konform zur W3DS-Spezifikation des "3D-Piloten" der GDI-NRW.<br />
+ * Voraussetzung f&uuml;r die Lauff&auml;higkeit des Servlets ist eine entsprechende Organisation der
+ * H&ouml;henmodelldaten. Die Modelle m&uuml;ssen TK 25-Blattschnitt-weise als ArcInfo-ASCII-Grids unter
+ * <tt>\dgm&lt;MM&gt;&lt;NN&gt;.asc</tt> abgelegt sein, wobei &lt;MM&gt;, &lt;NN&gt; die TK-Blattnummer bezeichnen.
+ * Das Quellverzeichnis ist &uuml;ber den Parameter "SourceGridPath" im Deployment-Deskriptor einstellbar.
+ * @author Benno Schmidt
  */
 public class DEMServlet extends HttpServlet
 {
@@ -45,14 +64,14 @@ public class DEMServlet extends HttpServlet
     private String mSourceGridPath;
     private String mTileLocator = "TK25";
     private double mMaxArea = 1000000000.; // 1000 km^2
-    private double mMinCellSize = 50.; // todo: doku inst-hbu / Inst-HBU: "hängt von Quell-Grids ab!"
-    private double mMinCellSizeLatLon = 4.629627e-4; // todo: doku inst-hbu / Inst-HBU: "hängt von Quell-Grids ab!"
+    private double mMinCellSize = 50.; // todo: doku inst-hbu / Inst-HBU: "hï¿½ngt von Quell-Grids ab!"
+    private double mMinCellSizeLatLon = 4.629627e-4; // todo: doku inst-hbu / Inst-HBU: "hï¿½ngt von Quell-Grids ab!"
     private double mSearchRadiusMin = 49.99; // todo: doku inst-hbu
     private String mCapabilitiesFile;
     private String mWorkingDirectory;
 
     /**
-     * liest die Ablaufparameter aus dem Deployment-Deskriptor und überträgt die Werte in entsprechende
+     * liest die Ablaufparameter aus dem Deployment-Deskriptor und ï¿½bertrï¿½gt die Werte in entsprechende
      * Member-Variablen.<p>
      */
     public void fetchInitParameters()
@@ -87,7 +106,7 @@ public class DEMServlet extends HttpServlet
     {
         HttpRequestParams lReqParams = new HttpRequestParams();
 
-        // Bekanntgabe der Anfrage-Parameter, damit diese als Defaults verfügbar und/oder damit diese
+        // Bekanntgabe der Anfrage-Parameter, damit diese als Defaults verfï¿½gbar und/oder damit diese
         // getypt sind und somit automatisch geparst werden:
         lReqParams.addParameter("REQUEST", "String", "GetCapabilities");
         lReqParams.addParameter("SERVICE", "String", "DEM");
@@ -100,7 +119,7 @@ public class DEMServlet extends HttpServlet
 
         lReqParams.fetchRequestParameters(pReq);
 
-        // Rückgabe der Session-spezifischen Request-Parameter:
+        // Rï¿½ckgabe der Session-spezifischen Request-Parameter:
         return lReqParams;
     }
 
@@ -149,7 +168,7 @@ public class DEMServlet extends HttpServlet
             // Bearbeitung GetDEM- und GetScene-Anfrage:
             if (lRequest.equalsIgnoreCase("GetDEM") || lRequest.equalsIgnoreCase("GetScene"))
             {
-                // Request-Parameter aufbereiten und Wertebereiche prüfen:
+                // Request-Parameter aufbereiten und Wertebereiche prï¿½fen:
                 ParameterPreparer pp = new ParameterPreparer();
                 lSRS = pp.prepareSRS(lSRS);
                 lBBox = pp.prepareBBOX(lBBox, lSRS);
@@ -159,7 +178,7 @@ public class DEMServlet extends HttpServlet
 
                 if (! lBBox.hasMetricSRS()) {
                     if (lBBox.hasGeographicSRS()) {
-                        // metrisch benötigte Parameter umrechnen  // todo inst-hbu
+                        // metrisch benï¿½tigte Parameter umrechnen  // todo inst-hbu
                         lSearchRadius /= Wgs84Helper.degree2meter;
                     }
                     else {
@@ -184,11 +203,11 @@ public class DEMServlet extends HttpServlet
                 sLogger.debug("DEMServlet (" + lTmpName + "): Received " + lRequest + " request.");
                 lTimeProt.setFinished("init");
 
-                // Höhenmodell berechnen (Gridding):
+                // Hï¿½henmodell berechnen (Gridding):
                 lTimeProt.addTimeStamp("dem_access");
                 String lResFile;
                 try {
-                    lResFile = lHlp.setUpDEM(     // TODO arbeitet für lat/lon noch nicht sauber! -> QS!
+                    lResFile = lHlp.setUpDEM(     // TODO arbeitet fï¿½r lat/lon noch nicht sauber! -> QS!
                         lBBox.getLowerLeftFrontCorner(), lBBox.getUpperRightBackCorner(), lCellSize,
                         lSearchRadius, mTileLocator,
                         lFormat, mSourceGridPath, mDestFilePath, lTmpName);
@@ -209,7 +228,7 @@ public class DEMServlet extends HttpServlet
                 // Antwort generieren:
                 lTimeProt.addTimeStamp("generate_response");
                 String mime = lHlp.formatInfo(lFormat, "mime");
-                pResponse.setContentType(mime); // MIME-Typ für Antwort setzen
+                pResponse.setContentType(mime); // MIME-Typ fï¿½r Antwort setzen
                 BufferedReader lDatRead;
                 try {
                     lDatRead = new BufferedReader(new FileReader(lResFile));
@@ -219,7 +238,7 @@ public class DEMServlet extends HttpServlet
                 }
                 PrintWriter out = pResponse.getWriter(); // PrintWriter auf die Antwort aufsetzen
            	    String line = lDatRead.readLine();
-           	    while (line != null) { // generierte Temporärdatei zeilenweise senden
+           	    while (line != null) { // generierte Temporï¿½rdatei zeilenweise senden
                	    out.println(line);
                	    line = lDatRead.readLine();
            	    }
