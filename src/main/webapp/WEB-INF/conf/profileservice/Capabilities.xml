@@ -7,15 +7,15 @@
 		<!-- Human-readable title for pick lists -->
 		<Title>Profile Service</Title>
 		<!-- Narrative description providing additional information -->
-		<Abstract>Terrain profile service maintained by con terra GmbH. Contact: info@conterra.de.</Abstract>
+		<Abstract>Terrain profile service based on a 52 North implementation</Abstract>
 		<!-- Top-level web address of service or service provider.  See also OnlineResource
   elements under <DCPType>. -->
-		<OnlineResource xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="http://www.conterra.de" xlink:type="simple"/>
+		<OnlineResource xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="http://www.hs-bochum.de/fbv/3d" xlink:type="simple"/>
 		<!-- Contact information -->
 		<ContactInformation>
 			<ContactPersonPrimary>
 				<ContactPerson>Benno Schmidt</ContactPerson>
-				<ContactOrganization>con terra GmbH</ContactOrganization>
+				<ContactOrganization>52 North Initiative for Geospatial Open Source Software GmbH</ContactOrganization>
 			</ContactPersonPrimary>
 			<ContactPosition/>
 			<ContactAddress>
@@ -26,9 +26,9 @@
 				<PostCode>48155</PostCode>
 				<Country>Germany</Country>
 			</ContactAddress>
-			<ContactVoiceTelephone>++49 251 7474 0</ContactVoiceTelephone>	
+			<ContactVoiceTelephone>++49 251 39371 0</ContactVoiceTelephone>
 			<ContactFacsimileTelephone/>
-			<ContactElectronicMailAddress>schmidt@conterra.de</ContactElectronicMailAddress>
+			<ContactElectronicMailAddress>b.schmidt@52north.org</ContactElectronicMailAddress>
 		</ContactInformation>
 		<Fees>none</Fees>
 		<AccessConstraints>none</AccessConstraints>
@@ -39,7 +39,7 @@
 				<DCPType>
 					<HTTP>
 						<Get>
-							<OnlineResource xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="http://www.conterra.de/demservice2/servlet/ProfileServlet" xlink:type="simple"/>
+							<OnlineResource xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="http://www.hs-bochum.de/fbv/3d/ProfileServlet" xlink:type="simple"/>
 						</Get>
 					</HTTP>
 				</DCPType>
@@ -49,7 +49,7 @@
 				<DCPType>
 					<HTTP>
 						<Get>
-							<OnlineResource xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="http://www.contera.de/demservice2/servlet/ProfileServlet" xlink:type="simple"/>
+							<OnlineResource xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="http://www.hs-bochum.de/fbv/3d/ProfileServlet" xlink:type="simple"/>
 						</Get>
 					</HTTP>
 				</DCPType>
