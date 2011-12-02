@@ -5,15 +5,15 @@
 
 	<servlet>
 	    <servlet-name>WebTerrainServlet</servlet-name>
-        <servlet-class>de.conterra.suite.terrainservice.povraywts.WebTerrainServlet</servlet-class>
+        <servlet-class>org.n52.v3d.terrainserver.povraywts.WebTerrainServlet</servlet-class>
         <init-param>
     	    <param-name>CapabilitiesFile</param-name>
-      	    <param-value>D:/Projekte/terrainSuite/sdi-terrain/terrainService/build/exploded/WEB-INF/conf/wts/Capabilities.xml</param-value>
+      	    <param-value>D:/WebApps/terrainServer/WEB-INF/conf/wts/Capabilities.xml</param-value>
         </init-param>
         <init-param>
     	    <param-name>SourceGridPath</param-name>
       	    <!--<param-value>C:/Projekte/DGM50</param-value>-->
-            <param-value>C:/Projekte/Inspire/demdata</param-value>
+            <param-value>D:/Data/demdata</param-value>
         </init-param>
         <init-param>
     	    <param-name>TileLocator</param-name>
@@ -36,7 +36,7 @@
         </init-param>
         <init-param>
     	    <param-name>DefaultDrape</param-name>
-      	    <param-value>C:/Projekte/terrainSuite/sdi-terrain/terrainService/etc/povraywts/default_drape.jpg</param-value>
+      	    <param-value>D:/WebApps/terrainServer/etc/povraywts/default_drape.jpg</param-value>
         </init-param>
         <init-param>
     	    <param-name>PovrayInstallationPath</param-name>
@@ -64,7 +64,7 @@
         </init-param>
         <init-param>
     	    <param-name>WorkingDirectory</param-name>
-      	    <param-value>C:/tmp/sdi.suite/terrainServer</param-value>
+      	    <param-value>C:/tmp/terrainServer</param-value>
         </init-param>
         <init-param>
     	    <param-name>WebConnectProxySet</param-name>
@@ -80,11 +80,11 @@
         </init-param>
         <init-param>
     	    <param-name>WebConnectNonProxyHosts</param-name>
-      	    <param-value>localhost|la-nina</param-value>
+      	    <param-value>localhost|pa001a</param-value>
         </init-param>
         <init-param>
     	    <param-name>CopyrightTextContent</param-name>
-      	    <param-value>(C) 2004-2006, con terra GmbH</param-value>
+      	    <param-value>(C) 52 North</param-value>
         </init-param>
         <init-param>
     	    <param-name>CopyrightTextFont</param-name>
@@ -154,14 +154,14 @@
 
     <servlet>
 	    <servlet-name>DEMServlet</servlet-name>
-        <servlet-class>de.conterra.suite.terrainservice.demservice.DEMServlet</servlet-class>
+        <servlet-class>org.n52.v3d.terrainserver.povraywts.demservice.DEMServlet</servlet-class>
         <init-param>
     	    <param-name>CapabilitiesFile</param-name>
-      	    <param-value>D:/Projekte/terrainSuite/sdi-terrain/terrainService/build/exploded/WEB-INF/conf/demservice/Capabilities.xml</param-value>
+      	    <param-value>D:/WebApps/terrainServer/WEB-INF/conf/demservice/Capabilities.xml</param-value>
         </init-param>
         <init-param>
     	    <param-name>SourceGridPath</param-name>
-      	    <param-value>C:/Projekte/DGM50</param-value>
+      	    <param-value>D:/Data/DGM50</param-value>
         </init-param>
         <init-param>
     	    <param-name>DestFilePath</param-name>
@@ -195,18 +195,18 @@
 
     <servlet>
         <servlet-name>ProfileServlet</servlet-name>
-        <servlet-class>de.conterra.suite.terrainservice.profileservice.ProfileServlet</servlet-class>
+        <servlet-class>org.n52.v3d.terrainserver.povraywts.profileservice.ProfileServlet</servlet-class>
         <init-param>
     	    <param-name>CapabilitiesFile</param-name>
-      	    <param-value>D:/Projekte/terrainSuite/sdi-terrain/terrainService/build/exploded/WEB-INF/conf/profileservice/Capabilities.xml</param-value>
+      	    <param-value>D:/WebApps/terrainServer/conf/profileservice/Capabilities.xml</param-value>
         </init-param>
         <init-param>
     	    <param-name>SourceGridPath</param-name>
-      	    <param-value>D:/Projekte/DGM50</param-value>
+      	    <param-value>D:/Data/DGM50</param-value>
         </init-param>
         <init-param>
     	    <param-name>WorkingDirectory</param-name>
-      	    <param-value>C:/tmp</param-value>
+      	    <param-value>C:/tmp/terrainServer</param-value>
         </init-param>
         <init-param>
     	    <param-name>TileLocator</param-name>
@@ -228,16 +228,16 @@
 
     <servlet>
         <servlet-name>TKBlattnummerServlet</servlet-name>
-        <servlet-class>de.conterra.suite.terrainservice.tkblattnrservice.TKBlattnummerServlet</servlet-class>
+        <servlet-class>org.n52.v3d.terrainserver.povraywts.tkblattnrservice.TKBlattnummerServlet</servlet-class>
         <init-param>
     	    <param-name>CapabilitiesFile</param-name>
-      	    <param-value>D:/Projekte/terrainSuite/sdi-terrain/terrainService/build/exploded/WEB-INF/conf/tkblattnrservice/Capabilities.xml</param-value>
+      	    <param-value>D:/WebApps/terrainServer/WEB-INF/conf/tkblattnrservice/Capabilities.xml</param-value>
         </init-param>
     </servlet>
 
     <servlet-mapping>
           <servlet-name>WebTerrainServlet</servlet-name>
-          <url-pattern>/WTServlet</url-pattern>
+          <url-pattern>/WebTerrainServlet</url-pattern>
     </servlet-mapping>
 
     <servlet-mapping>
