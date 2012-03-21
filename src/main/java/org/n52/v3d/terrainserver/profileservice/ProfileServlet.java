@@ -42,12 +42,12 @@ import org.apache.batik.transcoder.TranscoderInput;
 import org.apache.batik.transcoder.TranscoderOutput;
 
 /**
- * Implementation of a cross-estion generation service.<br /><br />
+ * Implementation of a cross-section generation service.<br /><br />
  * <i>German:</i> Implementierung eines Profildienstes Der Dienst l&auml;sst sich auch dazu nutzen, punktuell einen
  * H&ouml;henwert abzufragen.<br />
  * Beispielaufrufe:
- * <tt>http://<hostname>/WebTerrainServlet?REQUEST=GetGraph&SRS=EPSG:31468&DEFLINE=4440675,5271075,0,4449475,5275000,0</tt>
- * <tt>http://<hostname>/WebTerrainServlet?REQUEST=GetElevation&SRS=EPSG:31466&POINT=2592761.3,5741340.4,0.0</tt>
+ * <tt>http://<hostname>/ProfileServlet?REQUEST=GetGraph&SRS=EPSG:31468&DEFLINE=4440675,5271075,0,4449475,5275000,0</tt>
+ * <tt>http://<hostname>/ProfileServlet?REQUEST=GetElevation&SRS=EPSG:31466&POINT=2592761.3,5741340.4,0.0</tt>
  * @author Benno Schmidt
  */
 public class ProfileServlet extends HttpServlet
@@ -151,7 +151,7 @@ public class ProfileServlet extends HttpServlet
             int lWidth = ((Integer) lReqParams.getParameterValue("WIDTH")).intValue();
             int lHeight = ((Integer) lReqParams.getParameterValue("HEIGHT")).intValue();
             double lExaggeration = ((Double) lReqParams.getParameterValue("EXAGGERATION")).doubleValue(); // todo sinnvoll?
-            int lVisAdds = ((Integer) lReqParams.getParameterValue("VISADDS")).intValue();
+            //int lVisAdds = ((Integer) lReqParams.getParameterValue("VISADDS")).intValue();
             VgPoint lPoint = (VgPoint) lReqParams.getParameterValue("POINT");
 
             if (lRequest.equalsIgnoreCase("GetCapabilities")) {
@@ -337,7 +337,7 @@ public class ProfileServlet extends HttpServlet
                             out.println("<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0 Transitional//EN\">");
                             out.println("<html>");
                             out.println("<head>");
-                            out.println("<title>sdi.suite terrainServer elevation information</title>");
+                            out.println("<title>52N terrainServer elevation information</title>");
                             out.println("<font face=\"Verdana, Arial, Helvetica\" size=1>");
                             out.println("<meta http-equiv=Content-Type content=\"text/html; charset=iso-8859-1\">");
                             out.println("<body text=#000000 bgColor=#ffffff leftMargin=0 topMargin=0>");
