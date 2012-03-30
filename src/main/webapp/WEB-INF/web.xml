@@ -8,12 +8,12 @@
         <servlet-class>org.n52.v3d.terrainserver.povraywts.WebTerrainServlet</servlet-class>
         <init-param>
     	    <param-name>CapabilitiesFile</param-name>
-      	    <param-value>D:/WebApps/terrainServer/WEB-INF/conf/wts/Capabilities.xml</param-value>
+      	    <param-value>${app.capabilities.wts}</param-value>
         </init-param>
         <init-param>
     	    <param-name>SourceGridPath</param-name>
       	    <!--<param-value>C:/Projekte/DGM50</param-value>-->
-            <param-value>D:/Data/demdata</param-value>
+            <param-value>${app.grid.path}</param-value>
         </init-param>
         <init-param>
     	    <param-name>TileLocator</param-name>
@@ -36,15 +36,15 @@
         </init-param>
         <init-param>
     	    <param-name>DefaultDrape</param-name>
-      	    <param-value>D:/WebApps/terrainServer/etc/povraywts/default_drape.jpg</param-value>
+      	    <param-value>${app.defaultDrape}</param-value>
         </init-param>
         <init-param>
     	    <param-name>PovrayInstallationPath</param-name>
-      	    <param-value>C:/Programme/povray36b</param-value>
+      	    <param-value>${app.povray.inst.path}</param-value>
         </init-param>
         <init-param>
     	    <param-name>PovrayExec</param-name>
-      	    <param-value>/bin/pvengine.exe</param-value>
+      	    <param-value>${app.povray.inst.exec}</param-value>
         </init-param>
         <init-param>
     	    <param-name>PovrayWin</param-name>
@@ -64,7 +64,7 @@
         </init-param>
         <init-param>
     	    <param-name>WorkingDirectory</param-name>
-      	    <param-value>C:/tmp/terrainServer</param-value>
+      	    <param-value>${app.working.dir}</param-value>
         </init-param>
         <init-param>
     	    <param-name>WebConnectProxySet</param-name>
@@ -157,15 +157,15 @@
         <servlet-class>org.n52.v3d.terrainserver.demservice.DEMServlet</servlet-class>
         <init-param>
     	    <param-name>CapabilitiesFile</param-name>
-      	    <param-value>D:/WebApps/terrainServer/WEB-INF/conf/demservice/Capabilities.xml</param-value>
+      	    <param-value>${app.capabilities.dem}</param-value>
         </init-param>
         <init-param>
     	    <param-name>SourceGridPath</param-name>
-      	    <param-value>D:/Data/DGM50</param-value>
+      	    <param-value>${app.grid.path}</param-value>
         </init-param>
         <init-param>
     	    <param-name>DestFilePath</param-name>
-      	    <param-value>C:/temp</param-value>
+      	    <param-value>${app.working.dir}</param-value>
         </init-param>
         <init-param>
     	    <param-name>TileLocator</param-name>
@@ -185,7 +185,7 @@
         </init-param>
         <init-param>
     	    <param-name>WorkingDirectory</param-name>
-      	    <param-value>C:/tmp</param-value>
+      	    <param-value>${app.working.dir}</param-value>
         </init-param>
         <init-param>
     	    <param-name>MaxArea</param-name>
@@ -198,15 +198,15 @@
         <servlet-class>org.n52.v3d.terrainserver.profileservice.ProfileServlet</servlet-class>
         <init-param>
     	    <param-name>CapabilitiesFile</param-name>
-      	    <param-value>D:/WebApps/terrainServer/conf/profileservice/Capabilities.xml</param-value>
+      	    <param-value>${app.capabilities.profile}</param-value>
         </init-param>
         <init-param>
     	    <param-name>SourceGridPath</param-name>
-      	    <param-value>D:/Data/DGM50</param-value>
+      	    <param-value>${app.grid.path}</param-value>
         </init-param>
         <init-param>
     	    <param-name>WorkingDirectory</param-name>
-      	    <param-value>C:/tmp/terrainServer</param-value>
+      	    <param-value>${app.working.dir}</param-value>
         </init-param>
         <init-param>
     	    <param-name>TileLocator</param-name>
@@ -231,7 +231,7 @@
         <servlet-class>org.n52.v3d.terrainserver.tkblattnrservice.TKBlattnummerServlet</servlet-class>
         <init-param>
     	    <param-name>CapabilitiesFile</param-name>
-      	    <param-value>D:/WebApps/terrainServer/WEB-INF/conf/tkblattnrservice/Capabilities.xml</param-value>
+      	    <param-value>${app.capabilities.tkblattnr}</param-value>
         </init-param>
     </servlet>
 

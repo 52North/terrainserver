@@ -4,7 +4,7 @@
 <log4j:configuration>
 
     <appender name="terrainServerLog" class="org.apache.log4j.RollingFileAppender">
-        <param name='File' value='C:/tmp/sdi.suite/terrainServer/terrainServer.log'/>
+        <param name='File' value='${app.working.dir}/terrainServer.log'/>
         <param name="Threshold" value="debug"/>
         <param name="MaxFileSize" value="1000000"/>
         <param name="MaxBackupIndex" value="3"/>
@@ -19,7 +19,7 @@
         </layout>
     </appender>
 
-    <logger name="de.conterra">
+    <logger name="org.n52">
         <level value="debug"/>
         <appender-ref ref="terrainServerLog"/>
         <appender-ref ref="CONSOLE"/>

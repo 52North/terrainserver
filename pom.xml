@@ -74,6 +74,15 @@
 		<url>http://svn.52north.org/cgi-bin/viewvc.cgi/52n-v3d-terrainserver/trunk/${project.artifactId}?root=3d</url>
 	</scm>
 	<build>
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <includes>
+                    <include>log4j.xml</include>
+                </includes>
+                <filtering>true</filtering>
+            </resource>
+        </resources>
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -92,6 +101,27 @@
 					<source>1.5</source>
 				</configuration>
 			</plugin>
+            <plugin>
+                <groupId>org.codehaus.groovy.maven</groupId>
+                <artifactId>gmaven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>replace backslashes in paths on windows</id>
+                        <phase>initialize</phase>
+                        <goals>
+                            <goal>execute</goal>
+                        </goals>
+                        <configuration>
+                            <properties>
+                                <buildDir>${project.build.directory}</buildDir>
+                            </properties>
+                            <source>
+                                project.properties['slashPath'] = project.properties['buildDir'].replace('\\','/');
+                            </source>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
 		</plugins>
 		<pluginManagement>
 			<plugins>
@@ -117,6 +147,16 @@
 								<addDefaultImplementationEntries>true</addDefaultImplementationEntries>
 							</manifest>
 						</archive>
+                        <webResources>
+                            <webResource>
+                                <directory>${basedir}/src/main/webapp/WEB-INF</directory>
+                                <includes>
+                                    <include>*.xml</include>
+                                </includes>
+                                <targetPath>WEB-INF</targetPath>
+                                <filtering>true</filtering>
+                            </webResource>
+                        </webResources>
 					</configuration>
 				</plugin>
 				<plugin>
@@ -213,6 +253,18 @@
 		<logging.log4j.appender.file.level>INFO</logging.log4j.appender.file.level>
 		<!--logging.log4j.appender.file.path>${catalina.home}/logs</logging.log4j.appender.file.path-->
 		<logging.log4j.appender.file.name>${project.artifactId}</logging.log4j.appender.file.name>
+
+
+        <app.capabilities.wts>${slashPath}/WEB-INF/conf/wts/Capabilities.xml</app.capabilities.wts>
+        <app.capabilities.dem>${slashPath}/WEB-INF/conf/demservice/Capabilities.xml</app.capabilities.dem>
+        <app.capabilities.profile>${slashPath}/WEB-INF/conf/profileservice/Capabilities.xml</app.capabilities.profile>
+        <app.capabilities.tkblattnr>${slashPath}/WEB-INF/conf/tkblattnrservice/Capabilities.xml</app.capabilities.tkblattnr>
+        <app.grid.path>D:/Data/demdata</app.grid.path>
+        <app.defaultDrape>D:/WebApps/terrainServer/etc/povraywts/default_drape.jpg</app.defaultDrape>
+        <app.povray.inst.path>C:/Programme/povray36b</app.povray.inst.path>
+        <app.povray.inst.exec>/bin/pvengine.exe</app.povray.inst.exec>
+        <app.working.dir>C:/tmp/terrainServer</app.working.dir>
+
 	</properties>
 	<profiles>
 		<profile>
