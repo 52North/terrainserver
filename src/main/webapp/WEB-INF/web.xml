@@ -154,7 +154,7 @@
 
     <servlet>
 	    <servlet-name>DEMServlet</servlet-name>
-        <servlet-class>org.n52.v3d.terrainserver.povraywts.demservice.DEMServlet</servlet-class>
+        <servlet-class>org.n52.v3d.terrainserver.demservice.DEMServlet</servlet-class>
         <init-param>
     	    <param-name>CapabilitiesFile</param-name>
       	    <param-value>D:/WebApps/terrainServer/WEB-INF/conf/demservice/Capabilities.xml</param-value>
@@ -195,7 +195,7 @@
 
     <servlet>
         <servlet-name>ProfileServlet</servlet-name>
-        <servlet-class>org.n52.v3d.terrainserver.povraywts.profileservice.ProfileServlet</servlet-class>
+        <servlet-class>org.n52.v3d.terrainserver.profileservice.ProfileServlet</servlet-class>
         <init-param>
     	    <param-name>CapabilitiesFile</param-name>
       	    <param-value>D:/WebApps/terrainServer/conf/profileservice/Capabilities.xml</param-value>
@@ -228,7 +228,7 @@
 
     <servlet>
         <servlet-name>TKBlattnummerServlet</servlet-name>
-        <servlet-class>org.n52.v3d.terrainserver.povraywts.tkblattnrservice.TKBlattnummerServlet</servlet-class>
+        <servlet-class>org.n52.v3d.terrainserver.tkblattnrservice.TKBlattnummerServlet</servlet-class>
         <init-param>
     	    <param-name>CapabilitiesFile</param-name>
       	    <param-value>D:/WebApps/terrainServer/WEB-INF/conf/tkblattnrservice/Capabilities.xml</param-value>
