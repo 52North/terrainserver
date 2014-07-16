@@ -14,6 +14,12 @@
 	<description>
         This module serves as a base for all applications
     </description>
+    <licenses>
+        <license>
+            <name>GNU GENERAL PUBLIC LICENSE Version 2, June 1991</name>
+            <url>http://www.gnu.org/licenses/gpl-2.0.txt</url>
+        </license>
+    </licenses>
 	<mailingLists>
 		<mailingList>
 			<name>3d</name>
