@@ -16,13 +16,13 @@ Thus, functionality provided by the 52°North terrainServer can be easily integr
 
 ## Services
 * The WebTerrainServlet, which offers
-** a Web Terrain Service (WTS) implementation to generate perspective views, e.g. a rendered PNG or JPEG image showing a static 3D view of the Earth's surface;
+  * a Web Terrain Service (WTS) implementation to generate perspective views, e.g. a rendered PNG or JPEG image showing a static 3D view of the Earth's surface;
 * the ProfileServlet, which offers
-** a simple HTTP-Get service to query an elevation value for a specified position (x, y), as well as
-** a service to derive cross-sections from the underlying elevation data;
+  * a simple HTTP-Get service to query an elevation value for a specified position (x, y), as well as
+  * a service to derive cross-sections from the underlying elevation data;
 * the DEMServlet, which implements
-** a Web 3D Scene Service (W3DS) prototype delivering dynamic 3D scene descriptions, e.g. as VRML or X3D document, as well as
-** services delivering elevation models encoded in selectable ASCII data formats.
+  * a Web 3D Scene Service (W3DS) prototype delivering dynamic 3D scene descriptions, e.g. as VRML or X3D document, as well as
+  * services delivering elevation models encoded in selectable ASCII data formats.
 
 It is possible to install all of the services mentioned above or just single services.
 
