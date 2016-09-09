@@ -19,44 +19,57 @@
  **************************************************************************************/
 package org.n52.v3d.terrainserver.povraywts;
 
-import java.io.*;
-import java.lang.String;
-import java.util.Iterator;
-import java.util.StringTokenizer;
-import java.util.Enumeration;
+import java.awt.BasicStroke;
+import java.awt.Font;
+import java.awt.Graphics2D;
+import java.awt.Polygon;
 import java.awt.image.BufferedImage;
-import java.awt.*;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.io.PrintWriter;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
-import javax.servlet.http.*;
-import javax.servlet.ServletException;
-import javax.servlet.ServletConfig;
-import javax.imageio.*;
+import java.util.Iterator;
+import java.util.StringTokenizer;
+
+import javax.imageio.ImageIO;
+import javax.imageio.ImageReader;
 import javax.imageio.stream.ImageInputStream;
-import org.n52.v3d.triturus.core.T3dException;
-import org.n52.v3d.triturus.core.T3dExceptionMessage;
-import org.n52.v3d.triturus.vgis.VgPoint;
-import org.n52.v3d.triturus.vgis.VgEnvelope;
-import org.n52.v3d.triturus.vgis.VgElevationGrid;
-import org.n52.v3d.triturus.web.*;
-import org.n52.v3d.triturus.gisimplm.*;
-import org.n52.v3d.triturus.vscene.VsSimpleScene;
-import org.n52.v3d.triturus.vscene.VsViewpoint;
-import org.n52.v3d.triturus.vscene.VsCamera;
-import org.n52.v3d.triturus.t3dutil.T3dVector;
-import org.n52.v3d.triturus.t3dutil.T3dColor;
-import org.n52.v3d.triturus.t3dutil.T3dTimeList;
-import org.n52.v3d.triturus.t3dutil.operatingsystem.TimeSliceAssigner;
-import org.n52.v3d.triturus.t3dutil.operatingsystem.FileTools;
-import org.n52.v3d.triturus.vispovray.PovrayScene;
-import org.n52.v3d.triturus.survey.Wgs84Helper;
-import org.n52.v3d.terrainserver.demservice.DEMServiceHelpers;
-import com.sun.image.codec.jpeg.JPEGEncodeParam;
-import com.sun.image.codec.jpeg.JPEGCodec;
-import com.sun.image.codec.jpeg.JPEGImageEncoder;
+import javax.servlet.ServletConfig;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.n52.v3d.terrainserver.demservice.DEMServiceHelpers;
+import org.n52.v3d.triturus.core.T3dException;
+import org.n52.v3d.triturus.core.T3dExceptionMessage;
+import org.n52.v3d.triturus.gisimplm.GmEnvelope;
+import org.n52.v3d.triturus.gisimplm.GmSimple2dGridGeometry;
+import org.n52.v3d.triturus.survey.Wgs84Helper;
+import org.n52.v3d.triturus.t3dutil.T3dColor;
+import org.n52.v3d.triturus.t3dutil.T3dTimeList;
+import org.n52.v3d.triturus.t3dutil.T3dVector;
+import org.n52.v3d.triturus.t3dutil.operatingsystem.FileTools;
+import org.n52.v3d.triturus.t3dutil.operatingsystem.TimeSliceAssigner;
+import org.n52.v3d.triturus.vgis.VgElevationGrid;
+import org.n52.v3d.triturus.vgis.VgEnvelope;
+import org.n52.v3d.triturus.vgis.VgPoint;
+import org.n52.v3d.triturus.vispovray.PovrayScene;
+import org.n52.v3d.triturus.vscene.VsCamera;
+import org.n52.v3d.triturus.vscene.VsSimpleScene;
+import org.n52.v3d.triturus.vscene.VsViewpoint;
+import org.n52.v3d.triturus.web.HttpRequestParams;
+import org.n52.v3d.triturus.web.HttpStandardResponse;
+import org.n52.v3d.triturus.web.IoHttpURLReader;
+import org.n52.v3d.triturus.web.IoWMSConnector;
+import org.n52.v3d.triturus.web.MimeTypeHelper;
+import org.n52.v3d.triturus.web.WMSRequestConfig;
 
 /**
  * Web Terrain Service (OGC-WTS 0.x) implementation using POV-Ray as rendering engine.<br /><br />
@@ -1121,11 +1134,12 @@ System.out.println("header: " + header + ",  value=" +  (String) headers.nextEle
                     try {
                         //ImageIO.setUseCache(false); // wichtig!
                         pResponse.setContentType("image/jpeg");
-                        JPEGImageEncoder enc = JPEGCodec.createJPEGEncoder(out); // JPEG-Encoder instanziieren
-                        JPEGEncodeParam prm = enc.getDefaultJPEGEncodeParam(lImage);
-                        prm.setQuality(((float) pQuality) / 100.f, false);
-                        enc.setJPEGEncodeParam(prm);
-                        enc.encode(lImage); // Bild als JPEG encoden und an Client senden
+                        ImageIO.write(lImage, "jpeg", out);
+//                        JPEGImageEncoder enc = JPEGCodec.createJPEGEncoder(out); // JPEG-Encoder instanziieren
+//                        JPEGEncodeParam prm = enc.getDefaultJPEGEncodeParam(lImage);
+//                        prm.setQuality(((float) pQuality) / 100.f, false);
+//                        enc.setJPEGEncodeParam(prm);
+//                        enc.encode(lImage); // Bild als JPEG encoden und an Client senden
                     } catch (Exception e) {
                         throw new T3dException("Did not finish JPEG image send process. " + e.getMessage(), 104);
                     }
@@ -1134,12 +1148,13 @@ System.out.println("header: " + header + ",  value=" +  (String) headers.nextEle
                     try {
                         // Merkw�rdig, dass nachstehender Code praktisch das korrekte Resultat liefert... (todo)
                         pResponse.setContentType("image/bmp");
-                        JPEGImageEncoder enc = JPEGCodec.createJPEGEncoder(out); // JPEG-Encoder instanziieren
-                        JPEGEncodeParam prm = enc.getDefaultJPEGEncodeParam(lImage);
-                        prm.setQuality(1.0f, false); // Qualit�t auf 100% setzen
-                        enc.setJPEGEncodeParam(prm);
-                        enc.encode(lImage); // Bild als JPG encoden und an Client senden
-                        ImageIO.write(lImage, "jpg", out); // !
+                        ImageIO.write(lImage, "bmp", out);
+//                        JPEGImageEncoder enc = JPEGCodec.createJPEGEncoder(out); // JPEG-Encoder instanziieren
+//                        JPEGEncodeParam prm = enc.getDefaultJPEGEncodeParam(lImage);
+//                        prm.setQuality(1.0f, false); // Qualit�t auf 100% setzen
+//                        enc.setJPEGEncodeParam(prm);
+//                        enc.encode(lImage); // Bild als JPG encoden und an Client senden
+//                        ImageIO.write(lImage, "jpg", out); // !
                     } catch (Exception e) {
                         throw new T3dException("Did not finish BMP image send process. " + e.getMessage(), 105);
                     }
