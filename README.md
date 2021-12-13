@@ -1,4 +1,6 @@
-﻿# 52°North TerrainServer
+This repository is no longer maintained and has therefore been archived. Feel free to use and extend the code, but we are aware that it might have security leaks, no longer supported dependencies or might not work at all.
+
+# 52°North TerrainServer
 README file for the [52°North TerrainServer][1]
 
 The 52°North terrainServer is a Web application providing access to elevation information, in other words, z-value information is processed. 
